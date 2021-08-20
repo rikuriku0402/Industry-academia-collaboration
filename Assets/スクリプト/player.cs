@@ -34,6 +34,7 @@ public class player : MonoBehaviour
     private bool isDown =false;
     private bool isOtherJump = false;
     private bool isContinue = false;
+    private bool nonDownAnim = false;
     private float continueTime = 0.0f;
     private float blinkTime=0.0f;
     private float jumpPos = 0.0f;
@@ -42,6 +43,8 @@ public class player : MonoBehaviour
     private float beforKey = 0.0f;
     private float jumpTime = 0.0f;
     private string enemyTag = "Enemy";
+    private string deadAreaTag;
+    private string hitAreaTag;
     #endregion
     
     void Start()
@@ -203,6 +206,7 @@ public class player : MonoBehaviour
     {
         float horizontalKey = Input.GetAxis("Horizontal");
         float xSpeed = 0.0f;
+
         if (horizontalKey > 0)
         {
             transform.localScale = new Vector3(1, 1, 1);
@@ -210,7 +214,7 @@ public class player : MonoBehaviour
             dashTime += Time.deltaTime;
             xSpeed = -Speed;
         }
-        else
+        else 
         {
             isRun = false;
             xSpeed = 0.0f;
@@ -247,7 +251,14 @@ public class player : MonoBehaviour
     /// <returns></returns>
     public bool IsContinueWaiting()
     {
-        return IsDownAnimEnd();
+        if (GManager.instance.isGameOver)
+        {
+            return false;
+        }
+        else
+        {
+            return IsDownAnimEnd() || nonDownAnim;
+        }
     }
     //downアニメーションが完了しているかどうか
     private bool IsDownAnimEnd()
@@ -276,7 +287,31 @@ public class player : MonoBehaviour
         isOtherJump = false;
         isRun = false;
         isContinue = true;
+        nonDownAnim = false;
     }
+
+    private void ReceiveDamage(bool downAnim)
+    {
+        if (isDown)
+        {
+            return;
+        }
+        else
+        {
+            if (downAnim)
+            {
+                anim.Play("Cat sibou");
+            }
+            else
+            {
+                nonDownAnim = true;
+            }
+            isSibou = true;
+            GManager.instance.SubHeartNum();
+        }
+    }
+    
+    
     #region//接触判定
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -310,15 +345,25 @@ public class player : MonoBehaviour
                 else
                 {
                     //downする
-　　　　　　　　　　anim.Play("Cat sibou");
-            　　　　isSibou = true;
+                    ReceiveDamage(true); 
                     break;
                 }
             }   
         }
         
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.tag==deadAreaTag)
+        {
+            ReceiveDamage(false);
+        }
+        else if(collision.tag==hitAreaTag)
+        {
+            ReceiveDamage(true);
+        }
+    }
+
     #endregion
-
-
 }
