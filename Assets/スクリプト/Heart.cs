@@ -27,7 +27,7 @@ public class Heart : MonoBehaviour
     {
         if (oldScore != GManager.instance.heartNum)
         {
-            heartText.text = "Heart" + GManager.instance.heartNum;
+            heartText.text = "×" + GManager.instance.heartNum;
             oldScore = GManager.instance.heartNum;
         }
     }
