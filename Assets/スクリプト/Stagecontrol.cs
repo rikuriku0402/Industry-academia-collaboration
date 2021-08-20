@@ -31,17 +31,6 @@ public class Stagecontrol : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (p != null && p.IsContinueWaiting())
-        {
-            if(continuePoint.Length>GManager.instance.continueNum)
-            {
-                playerObj.transform.position = continuePoint[GManager.instance.continueNum].transform.position;
-                p.ContinuePlayer();
-            }
-        }
-        else
-        {
-            Debug.Log("コンテニューポイントの設定が足りていないよ");
-        }
+
     }
 }
