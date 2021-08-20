@@ -9,6 +9,11 @@ public class Stagecontrol : MonoBehaviour
 
 
     private player p;
+    private int nextStageNum;
+    private bool startFade = false;
+    private bool doGameOver = false;
+    private bool retryGame = false;
+    private bool doSoenneChange = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,6 +32,7 @@ public class Stagecontrol : MonoBehaviour
             Debug.Log("設定が足りてないよ");
         }
     }
+
 
     // Update is called once per frame
     void Update()

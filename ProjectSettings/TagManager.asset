@@ -7,8 +7,8 @@ TagManager:
   - Ground
   - Enemy
   - Side
-  - Goal
-  - goal
+  - Deadarea
+  - HitArea
   layers:
   - Default
   - TransparentFX

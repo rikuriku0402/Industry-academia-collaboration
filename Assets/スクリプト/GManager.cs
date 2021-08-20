@@ -49,4 +49,12 @@ public class GManager : MonoBehaviour
             isGameOver = true;
         }
     }
+    public void RetryGame()
+    {
+        isGameOver = false;
+        heartNum = defaultHeartNum;
+        score = 0;
+        stageNum = 1;
+        continueNum = 0;
+    }
 }
