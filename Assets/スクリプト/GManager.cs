@@ -12,7 +12,6 @@ public class GManager : MonoBehaviour
     [Header("現在の残機")] public int heartNum;
     [Header("デフォルトの残機")] public int defaultHeartNum;
     [HideInInspector] public bool isGameOver;
-
     private void Awake()
     {
         if(instance==null)
