@@ -17,8 +17,8 @@ public class player : MonoBehaviour
     [Header("頭をぶつけた判定")] public GrouneCheck head;
     [Header("ダッシュの速さ表現")] public AnimationCurve dashCurve;
     [Header("ジャンプの速さ表現")] public AnimationCurve jumpCurve;
-    
-    
+    [Header("ゴールオブジェクトをつける")] public GameObject goal;
+
     #endregion
 
     #region//プライベート変数
@@ -330,4 +330,11 @@ public class player : MonoBehaviour
         
     }
     #endregion
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.gameObject==goal)
+        {
+            SceneManager.LoadScene("クリア画面");
+        }
+    }
 }
