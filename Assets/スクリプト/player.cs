@@ -42,7 +42,9 @@ public class player : MonoBehaviour
     private float dashTime = 0.0f;
     private float beforKey = 0.0f;
     private float jumpTime = 0.0f;
+    private float y = 1;
     private string enemyTag = "Enemy";
+    private string deadAreaTag = "Deadarea";
     #endregion
     
     void Start()
@@ -55,7 +57,7 @@ public class player : MonoBehaviour
 
     private void Update()
     {
-        if(isContinue)
+        if (isContinue)
         {
             //明滅　ついているときの戻る
             if (blinkTime > 0.2f)
@@ -74,7 +76,7 @@ public class player : MonoBehaviour
                 sr.enabled = true;
             }
             //一秒経ったら明滅終わり
-            if(continueTime>1.0f)
+            if (continueTime > 1.0f)
             {
                 isContinue = false;
                 blinkTime = 0.0f;
@@ -91,11 +93,7 @@ public class player : MonoBehaviour
             this.rb.velocity.y == .0)
         {
             this.rb.AddForce(transform.up * this.jumpForce);
-            
-        }
-        if(transform.position.y<-8)
-        {
-            SceneManager.LoadScene("ステージ１");
+
         }
     }
 
@@ -287,6 +285,27 @@ public class player : MonoBehaviour
         isContinue = true;
         nonDownAnim = false;
     }    
+
+    private void ReceiveDamage(bool downAnim)
+    {
+        if (isDown)
+        {
+            return;
+        }
+        else
+        {
+            if(downAnim)
+            {
+                anim.Play("Cat sibou");
+            }
+            else
+            {
+                 isSibou = true;
+            }
+
+            GManager.instance.SubHeartNum();
+        }
+    }
     #region//接触判定
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -319,10 +338,7 @@ public class player : MonoBehaviour
                 }
                 else
                 {
-                    //downする
-                    anim.Play("Cat sibou");
-                    isSibou = true;
-                    GManager.instance.SubHeartNum();
+                    ReceiveDamage(true);
                     break;
                 }
             }   
@@ -332,7 +348,12 @@ public class player : MonoBehaviour
     #endregion
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.gameObject==goal)
+        if(other.tag==deadAreaTag)
+        {
+            ReceiveDamage(false);
+            Debug.Log("判定内");
+        }
+        else if(other.gameObject==goal)
         {
             SceneManager.LoadScene("クリア画面");
         }
