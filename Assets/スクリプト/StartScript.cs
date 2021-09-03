@@ -3,30 +3,30 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class title : MonoBehaviour
+public class StartScript : MonoBehaviour
 {
     [Header("フェード")] public fadeimage fade;
 
     private bool firstPush = false;
     private bool goNextScene = false;
 
-    //スタートボタンを押されたら呼ばれる
-    public void PressStart()
+    // Start is called before the first frame update
+    public void GameStart()
     {
-        Debug.Log("Press Start!");
         if (!firstPush)
         {
-            Debug.Log("Go Next Scene!");
+            Debug.Log("ボタンが押されました");
             fade.StartFadeOut();
             firstPush = true;
         }
     }
 
+    // Update is called once per frame
     private void Update()
     {
         if (!goNextScene && fade.IsFadeOutComplete())
         {
-            SceneManager.LoadScene("RuleOption");
+            SceneManager.LoadScene("ステージ１");
             goNextScene = true;
         }
     }

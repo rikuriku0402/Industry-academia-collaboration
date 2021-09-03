@@ -6,7 +6,7 @@ public class ScoerItem : MonoBehaviour
 {
     [Header("加算するスコア")] public int myScore;
     [Header("プレイヤーの判定")] public PlayerTriggerCheck playerCheck;
-
+    [Header("ローテーション")] public float RotAngle = 4.0f;
     // Update is called once per frame
     void Update()
     {
@@ -19,5 +19,9 @@ public class ScoerItem : MonoBehaviour
                 Destroy(this.gameObject);
             }
         }
+    }
+    private void FixedUpdate()
+    {
+        transform.Rotate(0f, 0f, -RotAngle);
     }
 }
