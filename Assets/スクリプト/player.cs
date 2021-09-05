@@ -348,14 +348,18 @@ public class player : MonoBehaviour
     #endregion
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.tag==deadAreaTag)
+        if (other.tag == "Player")
         {
             ReceiveDamage(false);
-            Debug.Log("判定内");
+            Destroy(other.gameObject);
         }
-        else if(other.gameObject==goal)
+        else if (other.gameObject == goal)
         {
             SceneManager.LoadScene("クリア画面");
+        }
+        else if(transform.position.y < -8)
+        {
+            SceneManager.LoadScene("ステージ１");
         }
     }
 }
