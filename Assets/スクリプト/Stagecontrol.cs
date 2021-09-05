@@ -9,11 +9,6 @@ public class Stagecontrol : MonoBehaviour
 
 
     private player p;
-    private int nextStageNum;
-    private bool startFade = false;
-    private bool doGameOver = false;
-    private bool retryGame = false;
-    private bool doSoenneChange = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -43,10 +38,6 @@ public class Stagecontrol : MonoBehaviour
             {
                 playerObj.transform.position = continuePoint[GManager.instance.continueNum].transform.position;
             }
-        }
-        else
-        {
-            Debug.Log("コンテニューポイントの設定が足りてないよ");
         }
     }
 }
