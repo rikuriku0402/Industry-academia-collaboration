@@ -130,6 +130,7 @@ public class PlayerScript : MonoBehaviour
     private float GetYSpeed()
     {
         float verticalKey = Input.GetAxis("Vertical");
+        anim.Play("Down");
         float ySpeed = -gravity;
 
 
@@ -241,6 +242,7 @@ public class PlayerScript : MonoBehaviour
         anim.SetBool("jump", isJump || isOtherJump);
         anim.SetBool("ground", isGround);
         anim.SetBool("run", isRun);
+        anim.SetBool("Down", isDown);
     }
 
     /// <summary>
