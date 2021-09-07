@@ -10,11 +10,11 @@ public class Haristage2 : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             Destroy(collision.gameObject, 0.1f);
-            SceneManager.LoadScene("ステージ2");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
         else if (transform.position.y < -8)
         {
-            SceneManager.LoadScene("ステージ2");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
 }

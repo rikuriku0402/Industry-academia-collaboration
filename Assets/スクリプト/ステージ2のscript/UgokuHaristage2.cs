@@ -86,11 +86,11 @@ public class UgokuHaristage2 : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             Destroy(collision.gameObject, 3.0f);
-            SceneManager.LoadScene("ステージ２");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
         else if (transform.position.y < -8)
         {
-            SceneManager.LoadScene("ステージ２");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Ji面よりした : MonoBehaviour
+public class Ji面より下stage2 : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
