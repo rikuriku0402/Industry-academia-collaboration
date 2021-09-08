@@ -1,9 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GManager : MonoBehaviour
 {
+   
+
     public static GManager instance = null;
     
     [Header("スコア")]public int score;
@@ -12,6 +15,12 @@ public class GManager : MonoBehaviour
     [Header("現在の残機")] public int heartNum;
     [Header("デフォルトの残機")] public int defaultHeartNum;
     [HideInInspector] public bool isGameOver;
+    
+    public Text textGameOver;//ゲームオーヴァーのテキスト
+     void Start()
+    {
+        textGameOver.enabled = false;
+    }
     private void Awake()
     {
         if(instance==null)
@@ -42,10 +51,12 @@ public class GManager : MonoBehaviour
         if(heartNum>0)
         {
             --heartNum;
+            
         }
         else
         {
             isGameOver = true;
+            
         }
     }
     public void RetryGame()
@@ -55,5 +66,16 @@ public class GManager : MonoBehaviour
         score = 0;
         stageNum = 1;
         continueNum = 0;
+        
+    }
+
+    GameObject PlayerObj = GameObject.Find("Player");
+    void Update()
+    {
+        
+        if (PlayerObj == null)
+        {
+            textGameOver.enabled = true;
+        }
     }
 }

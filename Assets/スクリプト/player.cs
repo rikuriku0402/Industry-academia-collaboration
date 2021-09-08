@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class player : MonoBehaviour
 {
@@ -18,6 +19,7 @@ public class player : MonoBehaviour
     [Header("ダッシュの速さ表現")] public AnimationCurve dashCurve;
     [Header("ジャンプの速さ表現")] public AnimationCurve jumpCurve;
     [Header("ゴールオブジェクトをつける")] public GameObject goal;
+    public Text textGameOver;//ゲームオーヴァーのテキスト
 
     #endregion
 
@@ -53,6 +55,7 @@ public class player : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         capcol = GetComponent<CapsuleCollider2D>();
         sr = GetComponent<SpriteRenderer>();
+        textGameOver.enabled = false;
     }
 
     private void Update()
@@ -352,6 +355,7 @@ public class player : MonoBehaviour
         {
             ReceiveDamage(false);
             Destroy(other.gameObject);
+            
         }
         else if (other.gameObject == goal)
         {
