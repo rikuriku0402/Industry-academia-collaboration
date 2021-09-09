@@ -6,14 +6,25 @@ public class Stagecontrol : MonoBehaviour
 {
     [Header("プレイヤーゲームオブジェクト")] public GameObject playerObj;
     [Header("コンテニュー位置")] public GameObject[] continuePoint;
+    [Header("ゲームオーバー")] public GameObject gameOverObj;//動画を見て追加した
+    [Header("フェード")] public fadeimage fade;//動画を見て追加した
 
 
     private player p;
-    // Start is called before the first frame update
+    private int nextStageNum;//動画を見て追加した
+    private bool startFade = false;//動画を見て追加した
+    private bool doGameOver = false;//動画を見て追加した
+    private bool retryGame = false;//動画を見て追加した
+    private bool doSceneCharge = false;//動画を見て追加した
+
+
+
     void Start()
-    {
-        if (playerObj != null && continuePoint != null && continuePoint.Length > 0)
+    {    
+        gameOverObj.SetActive(false);//ゲームオーバーを初めに消す処理
+        if (playerObj != null && continuePoint != null && continuePoint.Length > 0 && gameOverObj != null && fade != null)
         {
+           
             playerObj.transform.position = continuePoint[0].transform.position;
 
             p = playerObj.GetComponent<player>();
@@ -31,8 +42,14 @@ public class Stagecontrol : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
-        if(p!=null&&p.IsContinueWaiting())
+    {    //ゲームオーバー時の処理動画を見て追加した
+        if (GManager.instance.isGameOver && !doGameOver)
+        {
+            gameOverObj.SetActive(true);
+            doGameOver = true;
+        }
+        //プレイヤーがやられた時の処理動画を見て追加した
+       else if(p!=null&&p.IsContinueWaiting() && !doGameOver)
         {
             if(continuePoint.Length>GManager.instance.continueNum)
             {

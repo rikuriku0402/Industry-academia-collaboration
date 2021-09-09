@@ -7,7 +7,9 @@ public class Heart : MonoBehaviour
 {
     private Text heartText = null;
     private int oldScore = 0;
-    // Start is called before the first frame update
+    //public Text textGameOver;//ゲームオーヴァーのテキスト
+
+
     void Start()
     {
         heartText = GetComponent<Text>();
@@ -20,6 +22,7 @@ public class Heart : MonoBehaviour
             Debug.Log("ゲームマネージャー置き忘れてるよ！");
             Destroy(this);
         }
+       
     }
 
     // Update is called once per frame
@@ -30,5 +33,23 @@ public class Heart : MonoBehaviour
             heartText.text = "×" + GManager.instance.heartNum;
             oldScore = GManager.instance.heartNum;
         }
+
+
+        {
+
+
+
+
+            //if (oldScore != 0)
+            //{
+
+            //    textGameOver.enabled = true;
+
+            //}
+
+
+        }
     }
+
+
 }
