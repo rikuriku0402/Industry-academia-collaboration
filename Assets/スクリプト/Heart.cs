@@ -7,7 +7,7 @@ public class Heart : MonoBehaviour
 {
     private Text heartText = null;
     private int oldScore = 0;
-    public Text textGameOver;//ゲームオーヴァーのテキスト
+    //public Text textGameOver;//ゲームオーヴァーのテキスト
 
 
     void Start()

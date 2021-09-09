@@ -16,10 +16,10 @@ public class GManager : MonoBehaviour
     [Header("デフォルトの残機")] public int defaultHeartNum;
     [HideInInspector] public bool isGameOver;
     
-    public Text textGameOver;//ゲームオーヴァーのテキスト
+    //public Text textGameOver;//ゲームオーヴァーのテキスト
      void Start()
     {
-        textGameOver.enabled = false;
+        //textGameOver.enabled = false;
     }
     private void Awake()
     {
@@ -69,13 +69,13 @@ public class GManager : MonoBehaviour
         
     }
 
-    GameObject PlayerObj = GameObject.Find("Player");
-    void Update()
-    {
+    //GameObject PlayerObj = GameObject.Find("Player");
+    //void //Update()
+    //{
         
-        if (PlayerObj == null)
-        {
-            textGameOver.enabled = true;
-        }
-    }
+    //    if (PlayerObj == null)
+    //    {
+    //        textGameOver.enabled = true;
+    //    }
+    //}
 }

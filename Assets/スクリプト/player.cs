@@ -19,7 +19,7 @@ public class player : MonoBehaviour
     [Header("ダッシュの速さ表現")] public AnimationCurve dashCurve;
     [Header("ジャンプの速さ表現")] public AnimationCurve jumpCurve;
     [Header("ゴールオブジェクトをつける")] public GameObject goal;
-    public Text textGameOver;//ゲームオーヴァーのテキスト
+    //public Text textGameOver;//ゲームオーヴァーのテキスト
 
     #endregion
 
@@ -55,7 +55,7 @@ public class player : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         capcol = GetComponent<CapsuleCollider2D>();
         sr = GetComponent<SpriteRenderer>();
-        textGameOver.enabled = false;
+        //textGameOver.enabled = false;
     }
 
     private void Update()

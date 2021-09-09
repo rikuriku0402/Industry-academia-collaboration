@@ -21352,7 +21352,6 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   goal: {fileID: 1669529202}
-  textGameOver: {fileID: 1349176335}
 --- !u!70 &927557534
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -21853,7 +21852,7 @@ PrefabInstance:
     - target: {fileID: 7242434501736382078, guid: 69fd841bd0ccfc34393d2a043f744956,
         type: 3}
       propertyPath: heartNum
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7242434501736382078, guid: 69fd841bd0ccfc34393d2a043f744956,
         type: 3}
@@ -21868,7 +21867,7 @@ PrefabInstance:
     - target: {fileID: 7242434501736382078, guid: 69fd841bd0ccfc34393d2a043f744956,
         type: 3}
       propertyPath: defaultHeartNum
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 69fd841bd0ccfc34393d2a043f744956, type: 3}
@@ -22526,7 +22525,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c850399133669d4093978055eb16c1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textGameOver: {fileID: 1349176335}
 --- !u!1 &1367818179
 GameObject:
   m_ObjectHideFlags: 0
@@ -23417,6 +23415,8 @@ MonoBehaviour:
   playerObj: {fileID: 927557529}
   continuePoint:
   - {fileID: 1894565136}
+  gameOverObj: {fileID: 1349176333}
+  fade: {fileID: 0}
 --- !u!4 &1894565138
 Transform:
   m_ObjectHideFlags: 0
