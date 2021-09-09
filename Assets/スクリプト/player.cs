@@ -19,6 +19,8 @@ public class player : MonoBehaviour
     [Header("ダッシュの速さ表現")] public AnimationCurve dashCurve;
     [Header("ジャンプの速さ表現")] public AnimationCurve jumpCurve;
     [Header("ゴールオブジェクトをつける")] public GameObject goal;
+    public Text GameOvertext;
+    public int life;
     //public Text textGameOver;//ゲームオーヴァーのテキスト
 
     #endregion
@@ -306,9 +308,25 @@ public class player : MonoBehaviour
                  isSibou = true;
             }
 
-            GManager.instance.SubHeartNum();
+            //GManager.instance.SubHeartNum();
         }
     }
+    void Life()
+    {
+        if (GManager.instance.heartNum > 1)
+        {
+            GManager.instance.heartNum -= 1;
+            GManager.instance.Respawn(this.gameObject);
+            Debug.Log(GManager.instance.heartNum);
+
+            
+        }
+        else if (GManager.instance.heartNum <= 1)
+        {
+            GameOvertext.gameObject.SetActive(true);
+        }
+    }
+
     #region//接触判定
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -361,9 +379,9 @@ public class player : MonoBehaviour
         {
             SceneManager.LoadScene("クリア画面");
         }
-        else if(transform.position.y < -8)
+        else if(other.tag=="Enemy")
         {
-            SceneManager.LoadScene("ステージ１");
+            Life();
         }
     }
 }

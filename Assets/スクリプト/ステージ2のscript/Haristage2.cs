@@ -12,9 +12,5 @@ public class Haristage2 : MonoBehaviour
             Destroy(collision.gameObject, 0.1f);
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
-        else if (transform.position.y < -8)
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        }
     }
 }

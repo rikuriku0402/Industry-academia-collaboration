@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 public class UgokuHaristage2 : MonoBehaviour
 {
     #region//インスペクターで設定する
-    [Header("加算スコア")] public int myScore;
     [Header("移動速度")] public float speed;
     [Header("重力")] public float gravity;
     [Header("画面外でも行動するが")] public bool nonVisible;
@@ -64,19 +63,18 @@ public class UgokuHaristage2 : MonoBehaviour
         {
             if (!isDead)
             {
-                anim.Play("enemy cat");
                 rb.velocity = new Vector2(0, -gravity);
                 isDead = true;
                 col.enabled = false;
-                if (GManager.instance != null)
-                {
-                    GManager.instance.score += myScore;
-                }
                 Destroy(gameObject, 1f);
             }
             else
             {
                 transform.Rotate(new Vector3(0, 0, 3));
+            }
+            if(transform.position.x<-28)
+            {
+                Destroy(this.gameObject);
             }
         }
     }
@@ -85,13 +83,10 @@ public class UgokuHaristage2 : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            Destroy(collision.gameObject, 3.0f);
+            Destroy(collision.gameObject, 1.0f);
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
-        else if (transform.position.y < -8)
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        }
+        
     }
 
 }

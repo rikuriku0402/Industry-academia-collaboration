@@ -19,6 +19,7 @@ public class PlayerScript : MonoBehaviour
     [Header("ダッシュの速さ表現")] public AnimationCurve dashCurve;
     [Header("ジャンプの速さ表現")] public AnimationCurve jumpCurve;
     [Header("ゴールオブジェクトをつける")] public GameObject goal;
+    [Header("ライフ")] public int life = 3;
 
 
     #endregion
@@ -307,9 +308,10 @@ public class PlayerScript : MonoBehaviour
                 isSibou = true;
             }
 
-            GManager.instance.SubHeartNum();
+            //GManager.instance.SubHeartNum();
         }
     }
+    
     #region//接触判定
     private void OnCollisionEnter2D(Collision2D collision)
     {
