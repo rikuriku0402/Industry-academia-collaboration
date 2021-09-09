@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Yukanoscript : MonoBehaviour
+public class Yukanoscript : MonoBehaviour//床が動くスクリプト
 {
     private Vector3 tragetPos;
 
