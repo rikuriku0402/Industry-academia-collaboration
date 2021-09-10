@@ -15,6 +15,7 @@ public class player : MonoBehaviour
     [Header("ジャンプする制限時間")] public float jumpLimitTime;
     [Header("踏みつけ判定の高さの割合")] public float stepOnRate;
     [Header("ジャンプフォース")]public float jumpForce=200.0f;
+    [Header("Xスピード")]float xSpeed = 0.0f;
     [Header("設置判定")] public GrouneCheck ground;
     [Header("頭をぶつけた判定")] public GrouneCheck head;
     [Header("ダッシュの速さ表現")] public AnimationCurve dashCurve;
@@ -169,7 +170,7 @@ public class player : MonoBehaviour
     private float GetXSpeed()
     {
         float horizontalKey = Input.GetAxis("Horizontal");
-        float xSpeed = 0.0f;
+        
 
         if (horizontalKey > 0)
         {
@@ -278,21 +279,24 @@ public class player : MonoBehaviour
         //キャラとかカメラの移動を停止させる
 
 
+
     }
+    /// <summary>
+    /// ライフを追加ゆっぴーはいじっちゃだめよ❤
+    /// </summary>
     void Life()
     {
-        if (GManager.instance.heartNum > 1)
+        if (GManager.instance.heartNum > 0)
         {
             GManager.instance.heartNum -= 1;
             GManager.instance.Respawn(this.gameObject);
             Debug.Log(GManager.instance.heartNum);
 
-            
+
         }
-        else if (GManager.instance.heartNum <= 1)
+        else if (GManager.instance.heartNum <= 0)
         {
             GameOvertext.gameObject.SetActive(true);
-            
         }
     }
 

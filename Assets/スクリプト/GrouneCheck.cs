@@ -4,11 +4,15 @@ using UnityEngine;
 
 public class GrouneCheck : MonoBehaviour
 {
+    #region
+    [Header("エフェクトがついた床を判定するが")] public bool checkPlatformGound = true;
     private string groundTag = "Ground";
+    private string platformTag = "GroundPlatform";
     private bool isGround = false;
     private bool isGroundEnter,isGroundStay, isGroundExit;
+    #endregion
     // Start is called before the first frame update
-    
+
     //物理判定の更新毎呼ぶ必要がある
     public bool IsGround()
     {
@@ -32,6 +36,10 @@ public class GrouneCheck : MonoBehaviour
         {
             isGroundEnter = true;
         }
+        else if(checkPlatformGound&&collision.tag==platformTag)
+        {
+            isGroundEnter = true;
+        }
     }
     private void OnTriggerStay2D(Collider2D collision)
     {
@@ -39,10 +47,18 @@ public class GrouneCheck : MonoBehaviour
         {
             isGroundStay = true;
         }
+        else if(checkPlatformGound&&collision.tag==platformTag)
+        {
+            isGroundStay = true;
+        }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.tag == groundTag)
+        {
+            isGroundExit = true;
+        }
+        else if(checkPlatformGound&&collision.tag==platformTag)
         {
             isGroundExit = true;
         }

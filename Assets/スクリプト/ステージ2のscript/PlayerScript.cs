@@ -36,18 +36,13 @@ public class PlayerScript : MonoBehaviour
     private bool isSibou = false;
     private bool isDown = false;
     private bool isOtherJump = false;
-    private bool isContinue = false;
     private bool nonDownAnim = false;
-    private float continueTime = 0.0f;
-    private float blinkTime = 0.0f;
     private float jumpPos = 0.0f;
     private float otherJumpHeight = 0.0f;
     private float dashTime = 0.0f;
     private float beforKey = 0.0f;
     private float jumpTime = 0.0f;
-    private float y = 1;
     private string enemyTag = "Enemy";
-    private string deadAreaTag = "Deadarea";
     #endregion
 
     void Start()
@@ -60,44 +55,7 @@ public class PlayerScript : MonoBehaviour
 
     private void Update()
     {
-        if (isContinue)
-        {
-            //明滅　ついているときの戻る
-            if (blinkTime > 0.2f)
-            {
-                sr.enabled = true;
-                blinkTime = 0.0f;
-            }
-            //明滅　消えているとき
-            else if (blinkTime > 0.1f)
-            {
-                sr.enabled = false;
-            }
-            //明滅　ついているとき
-            else
-            {
-                sr.enabled = true;
-            }
-            //一秒経ったら明滅終わり
-            if (continueTime > 1.0f)
-            {
-                isContinue = false;
-                blinkTime = 0.0f;
-                continueTime = 0.0f;
-                sr.enabled = true;
-            }
-            else
-            {
-                blinkTime += Time.deltaTime;
-                continueTime += Time.deltaTime;
-            }
-        }
-        if (Input.GetKeyDown(KeyCode.Space) &&
-            this.rb.velocity.y == .0)
-        {
-            this.rb.AddForce(transform.up * this.jumpForce);
-
-        }
+        
     }
 
     void FixedUpdate()
@@ -287,7 +245,6 @@ public class PlayerScript : MonoBehaviour
         isJump = false;
         isOtherJump = false;
         isRun = false;
-        isContinue = true;
         nonDownAnim = false;
     }
 

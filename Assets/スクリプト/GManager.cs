@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class GManager : MonoBehaviour
 {
@@ -34,7 +33,7 @@ public class GManager : MonoBehaviour
     }
     public void RetryGame()
     {
-        isGameOver = false;
+        isGameOver =enabled= false;
         score = 0;
         stageNum = 1;
         continueNum = 0;

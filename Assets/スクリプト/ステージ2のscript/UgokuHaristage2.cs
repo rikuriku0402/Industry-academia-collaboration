@@ -15,7 +15,6 @@ public class UgokuHaristage2 : MonoBehaviour
     #region//プライベート変数
     private Rigidbody2D rb = null;
     private SpriteRenderer sr = null;
-    private Animator anim = null;
     private ObjeCollsion oc = null;
     private BoxCollider2D col = null;
     private bool rightTleftF = false;
@@ -26,7 +25,6 @@ public class UgokuHaristage2 : MonoBehaviour
     {
         sr = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
-        anim = GetComponent<Animator>();
         oc = GetComponent<ObjeCollsion>();
         col = GetComponent<BoxCollider2D>();
     }
