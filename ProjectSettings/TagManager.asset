@@ -9,6 +9,7 @@ TagManager:
   - Side
   - Deadarea
   - HitArea
+  - GroundPlatform
   layers:
   - Default
   - TransparentFX

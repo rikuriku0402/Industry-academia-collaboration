@@ -99,6 +99,45 @@ public class player : MonoBehaviour
         float verticalKey = Input.GetAxis("Vertical");
         float ySpeed = -gravity;
 
+        if(isGround)
+        {
+            if(verticalKey>0)
+            {
+                ySpeed = jumpSpeed;
+                jumpPos = transform.position.y;
+                isJump = true;
+                jumpTime = 0.0f;
+            }
+            else
+            {
+                isJump = false;
+            }
+        }
+        else if(isJump)
+        {
+            //上方向キーを押しているか
+            bool pushUpKey = verticalKey > 0;
+            //現在の高さが飛べる高さより下か
+            bool canHeight = jumpPos + jumpHeight > transform.position.y;
+            //ジャンプ時間が長くなりすぎてないか
+            bool canTime = jumpLimitTime > jumpTime;
+
+            if(pushUpKey&&canHeight&&canTime&&!isHead)
+            {
+                ySpeed = jumpSpeed;
+                jumpTime += Time.deltaTime;
+            }
+            else
+            {
+                isJump = false;
+                jumpTime = 0.0f;
+            }
+            if(isJump)
+            {
+                ySpeed *= jumpCurve.Evaluate(jumpTime);
+            }
+            return ySpeed;
+        }
         
          //何かを踏んだ際のジャンプ
         if(isOtherJump)
@@ -170,11 +209,18 @@ public class player : MonoBehaviour
     private float GetXSpeed()
     {
         float horizontalKey = Input.GetAxis("Horizontal");
-        
+        float xSpeed = 0.0f;
 
         if (horizontalKey > 0)
         {
             transform.localScale = new Vector3(1, 1, 1);
+            isRun = true;
+            dashTime += Time.deltaTime;
+            xSpeed = Speed;
+        }
+        else if(horizontalKey<0)
+        {
+            transform.localScale = new Vector3(-1, 1, 1);
             isRun = true;
             dashTime += Time.deltaTime;
             xSpeed = -Speed;
