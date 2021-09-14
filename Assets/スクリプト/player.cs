@@ -15,7 +15,6 @@ public class player : MonoBehaviour
     [Header("ジャンプする制限時間")] public float jumpLimitTime;
     [Header("踏みつけ判定の高さの割合")] public float stepOnRate;
     [Header("ジャンプフォース")]public float jumpForce=200.0f;
-    [Header("Xスピード")]float xSpeed = 0.0f;
     [Header("設置判定")] public GrouneCheck ground;
     [Header("頭をぶつけた判定")] public GrouneCheck head;
     [Header("ダッシュの速さ表現")] public AnimationCurve dashCurve;
@@ -46,6 +45,7 @@ public class player : MonoBehaviour
     private float beforKey = 0.0f;
     private float jumpTime = 0.0f;
     private string enemyTag = "Enemy";
+    private string fallFloorTag = "FloorFall";
 
     
     #endregion
@@ -320,16 +320,11 @@ public class player : MonoBehaviour
             //GManager.instance.SubHeartNum();
         }
     }
-    public void GameOver()
-    {
-        //キャラとかカメラの移動を停止させる
-
-
-
-    }
+    #region//ライフ
     /// <summary>
     /// ライフを追加ゆっぴーはいじっちゃだめよ❤
     /// </summary>
+    ///
     void Life()
     {
         if (GManager.instance.heartNum > 0)
@@ -343,12 +338,16 @@ public class player : MonoBehaviour
         else if (GManager.instance.heartNum <= 0)
         {
             GameOvertext.gameObject.SetActive(true);
+            SceneManager.LoadScene("ゲームオーバー画面");
         }
     }
+    #endregion
 
     #region//接触判定
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        bool enemy = (collision.collider.tag == enemyTag);
+        bool fallFloor = (collision.collider.tag == fallFloorTag);
         if(collision.collider.tag==enemyTag)
         {
             //踏みつけ判定になる高さ
@@ -364,19 +363,26 @@ public class player : MonoBehaviour
                     ObjeCollsion o = collision.gameObject.GetComponent<ObjeCollsion>();
                     if(o !=null)
                     {
-                        otherJumpHeight = o.boundHeight;//踏んづけたものから跳ねる高さを取得する
-                        o.playerStepOn = true;//踏んづけたものに対して踏んづけたことを通知する
-                        jumpPos = transform.position.y;//ジャンプした位置を記録する
-                        isOtherJump = true;
-                        isJump = true;
-                        jumpTime = 0.0f;
+                        if (enemy)
+                        {
+                            otherJumpHeight = o.boundHeight;//踏んづけたものから跳ねる高さを取得する
+                            o.playerStepOn = true;//踏んづけたものに対して踏んづけたことを通知する
+                            jumpPos = transform.position.y;//ジャンプした位置を記録する
+                            isOtherJump = true;
+                            isJump = true;
+                            jumpTime = 0.0f;
+                        }
+                        else
+                        {
+                            o.playerStepOn = true;
+                        }
                     }
                     else
                     {
                         Debug.Log("objectCollsionがついてないよ！！！");
                     }
                 }
-                else
+                else 
                 {
                     ReceiveDamage(true);
                     break;

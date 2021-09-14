@@ -28,7 +28,6 @@ public class PlayerScript : MonoBehaviour
     private Animator anim = null;
     private Rigidbody2D rb = null;
     private CapsuleCollider2D capcol = null;
-    private SpriteRenderer sr = null;
     private bool isGround = false;
     private bool isHead = false;
     private bool isJump = false;
@@ -50,7 +49,6 @@ public class PlayerScript : MonoBehaviour
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         capcol = GetComponent<CapsuleCollider2D>();
-        sr = GetComponent<SpriteRenderer>();
     }
 
     private void Update()
@@ -306,7 +304,6 @@ public class PlayerScript : MonoBehaviour
                 }
             }
         }
-
     }
     #endregion
     private void OnTriggerEnter2D(Collider2D other)
@@ -319,10 +316,6 @@ public class PlayerScript : MonoBehaviour
         else if (other.gameObject == goal)
         {
             SceneManager.LoadScene("クリア画面");
-        }
-        else if (transform.position.y < -8)
-        {
-            SceneManager.LoadScene("ステージ２");
         }
     }
 }

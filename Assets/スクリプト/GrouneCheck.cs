@@ -8,6 +8,8 @@ public class GrouneCheck : MonoBehaviour
     [Header("エフェクトがついた床を判定するが")] public bool checkPlatformGound = true;
     private string groundTag = "Ground";
     private string platformTag = "GroundPlatform";
+    private string MoveFlooTag = "MoveFloor";
+    private string fallFloorTag = "FallFloor";
     private bool isGround = false;
     private bool isGroundEnter,isGroundStay, isGroundExit;
     #endregion
@@ -36,7 +38,8 @@ public class GrouneCheck : MonoBehaviour
         {
             isGroundEnter = true;
         }
-        else if(checkPlatformGound&&collision.tag==platformTag)
+        else if(checkPlatformGound&&(collision.tag==platformTag||
+            collision.tag==MoveFlooTag||collision.tag==fallFloorTag))
         {
             isGroundEnter = true;
         }
@@ -47,7 +50,8 @@ public class GrouneCheck : MonoBehaviour
         {
             isGroundStay = true;
         }
-        else if(checkPlatformGound&&collision.tag==platformTag)
+        else if(checkPlatformGound&&(collision.tag==platformTag||
+            collision.tag==MoveFlooTag||collision.tag==fallFloorTag))
         {
             isGroundStay = true;
         }
@@ -58,7 +62,8 @@ public class GrouneCheck : MonoBehaviour
         {
             isGroundExit = true;
         }
-        else if(checkPlatformGound&&collision.tag==platformTag)
+        else if(checkPlatformGound&&(collision.tag==platformTag||
+            collision.tag==MoveFlooTag||collision.tag==fallFloorTag))
         {
             isGroundExit = true;
         }

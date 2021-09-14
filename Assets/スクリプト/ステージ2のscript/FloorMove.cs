@@ -10,6 +10,8 @@ public class FloorMove : MonoBehaviour
     private Rigidbody2D rb = null;
     private int nowPoint = 0;
     private bool returnPoint = false;
+    private Vector2 oldPos = Vector2.zero;
+    private Vector2 myVelocity = Vector2.zero;
 
     // Start is called before the first frame update
     void Start()
@@ -18,9 +20,14 @@ public class FloorMove : MonoBehaviour
         if (movePoint != null && movePoint.Length > 0 && rb != null)
         {
             rb.position = movePoint[0].transform.position;
+            oldPos = rb.position;
         }
     }
 
+    public Vector2 GetVelocity()
+    {
+        return myVelocity;
+    }
     // Update is called once per frame
     void FixedUpdate()
     {
@@ -74,6 +81,8 @@ public class FloorMove : MonoBehaviour
                     returnPoint = false;
                 }
             }
-        }       
-    }        
+        }
+        myVelocity = (rb.position - oldPos) / Time.deltaTime;
+        oldPos = rb.position;
+    } 
 }

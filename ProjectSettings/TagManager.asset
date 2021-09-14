@@ -10,6 +10,7 @@ TagManager:
   - Deadarea
   - HitArea
   - GroundPlatform
+  - Floor
   layers:
   - Default
   - TransparentFX

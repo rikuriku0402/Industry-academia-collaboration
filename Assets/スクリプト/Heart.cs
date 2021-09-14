@@ -9,7 +9,6 @@ public class Heart : MonoBehaviour
     private int oldScore = 0;
     //public Text textGameOver;//ゲームオーヴァーのテキスト
 
-
     void Start()
     {
         heartText = GetComponent<Text>();
@@ -34,22 +33,11 @@ public class Heart : MonoBehaviour
             oldScore = GManager.instance.heartNum;
         }
 
-
         {
-
-
-
-
             //if (oldScore != 0)
             //{
-
             //    textGameOver.enabled = true;
-
             //}
-
-
         }
     }
-
-
 }
