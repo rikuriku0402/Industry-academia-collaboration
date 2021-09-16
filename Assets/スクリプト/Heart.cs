@@ -21,7 +21,7 @@ public class Heart : MonoBehaviour
             Debug.Log("ゲームマネージャー置き忘れてるよ！");
             Destroy(this);
         }
-
+       
     }
 
     // Update is called once per frame

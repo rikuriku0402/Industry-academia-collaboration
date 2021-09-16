@@ -9,7 +9,7 @@ public class GManager : MonoBehaviour
     [Header("スコア")]public int score;
     [Header("現在のステージ")] public int stageNum;
     [Header("現在の復帰位置")] public int continueNum;
-    [Header("現在の残機")] public int heartNum=3;
+    [Header("現在の残機")] public int heartNum;
     [Header("デフォルトの残機")] public int defaultHeartNum;
     [Header("コンテニュー位置")] public GameObject continuePoint;
     [HideInInspector] public bool isGameOver;
@@ -31,25 +31,12 @@ public class GManager : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
-
-    //public void SubHeartNum()
-    //{
-    //    if(heartNum>0)
-    //    {
-    //        --heartNum;
-    //    }
-    //    else
-    //    {
-    //        isGameOver = true;
-    //    }
-    //}
     public void RetryGame()
     {
-        isGameOver = false;
-        heartNum = defaultHeartNum;
+        isGameOver =enabled= false;
         score = 0;
         stageNum = 1;
-         continueNum = 0;
+        continueNum = 0;
         
     }
 
