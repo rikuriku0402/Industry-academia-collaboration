@@ -333,7 +333,6 @@ public class player : MonoBehaviour
             GManager.instance.Respawn(this.gameObject);
             Debug.Log(GManager.instance.heartNum);
 
-
         }
         else if (GManager.instance.heartNum <= 0)
         {
@@ -347,7 +346,7 @@ public class player : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         bool enemy = (collision.collider.tag == enemyTag);
-        bool fallFloor = (collision.collider.tag == fallFloorTag);
+        //bool fallFloor = (collision.collider.tag == fallFloorTag);
         if(collision.collider.tag==enemyTag)
         {
             //踏みつけ判定になる高さ
@@ -385,6 +384,7 @@ public class player : MonoBehaviour
                 else 
                 {
                     ReceiveDamage(true);
+                    //GManager.instance.SubHeartNum(); 
                     break;
                 }
             }   
