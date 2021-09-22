@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class fadeimage : MonoBehaviour
 {
+    public static fadeimage Instance;
+
     [Header("最初からフェードインが完了しているかどうか")] public bool firstFadeInComp;
 
     private Image img = null;
@@ -14,6 +16,10 @@ public class fadeimage : MonoBehaviour
     private bool fadeOut = false;
     private bool compFadeIn = false;
     private bool compFadeOut = false;
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     /// <summary>
     /// フェードインを開始する

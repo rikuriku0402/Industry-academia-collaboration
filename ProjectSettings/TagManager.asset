@@ -11,6 +11,7 @@ TagManager:
   - HitArea
   - GroundPlatform
   - Floor
+  - FllorFall
   layers:
   - Default
   - TransparentFX

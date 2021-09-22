@@ -46,6 +46,7 @@ public class player : MonoBehaviour
     private float jumpTime = 0.0f;
     private string enemyTag = "Enemy";
     private string fallFloorTag = "FloorFall";
+    private string moveFloorTag = "MoveFloor";
 
     
     #endregion
@@ -338,8 +339,15 @@ public class player : MonoBehaviour
         else if (GManager.instance.heartNum <= 0)
         {
             GameOvertext.gameObject.SetActive(true);
-            SceneManager.LoadScene("ゲームオーバー画面");
+            StartCoroutine(WaitLoad(2f));
         }
+    }
+    IEnumerator WaitLoad(float timer)
+    {
+        fadeimage.Instance.StartFadeOut();
+        yield return new WaitForSeconds(timer);
+        SceneManager.LoadScene("ゲームオーバー画面");
+
     }
     #endregion
 
@@ -389,7 +397,21 @@ public class player : MonoBehaviour
                 }
             }   
         }
-        
+        else if(collision.collider.tag==moveFloorTag)
+        {
+            //踏みつけ判定になる高さ
+            float stepOnHeight = (capcol.size.y * (stepOnRate / 100f));
+            //踏みつけ判定のワールド座標
+            float judgePos = transform.position.y - (capcol.size.y / 2f) + stepOnHeight;
+            foreach(ContactPoint2D p in collision.contacts)
+            {
+                //動く床に乗っている
+                if(p.point.y<judgePos)
+                {
+                    
+                }
+            }
+        }
     }
     #endregion
     private void OnTriggerEnter2D(Collider2D other)
