@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 
 public class PlayerScript : MonoBehaviour
@@ -19,8 +20,10 @@ public class PlayerScript : MonoBehaviour
     [Header("ダッシュの速さ表現")] public AnimationCurve dashCurve;
     [Header("ジャンプの速さ表現")] public AnimationCurve jumpCurve;
     [Header("ゴールオブジェクトをつける")] public GameObject goal;
-    [Header("ライフ")] public int life = 3;
+    public Text GameOvertext;
+    public int life;
 
+    //public Text textGameOver;//ゲームオーヴァーのテキスト
 
     #endregion
 
@@ -42,6 +45,10 @@ public class PlayerScript : MonoBehaviour
     private float beforKey = 0.0f;
     private float jumpTime = 0.0f;
     private string enemyTag = "Enemy";
+    private string fallFloorTag = "FloorFall";
+    private string moveFloorTag = "MoveFloor";
+
+
     #endregion
 
     void Start()
@@ -53,12 +60,16 @@ public class PlayerScript : MonoBehaviour
 
     private void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.Space) &&
+            this.rb.velocity.y == .0)
+        {
+            this.rb.AddForce(transform.up * this.jumpForce);
+        }
     }
 
     void FixedUpdate()
     {
-        if (!isSibou)
+        if (!isSibou && !GManager.instance.isGameOver)
         {
             //接地判定を得る
             isGround = ground.IsGround();
@@ -87,9 +98,47 @@ public class PlayerScript : MonoBehaviour
     private float GetYSpeed()
     {
         float verticalKey = Input.GetAxis("Vertical");
-        anim.Play("Down");
         float ySpeed = -gravity;
 
+        if (isGround)
+        {
+            if (verticalKey > 0)
+            {
+                ySpeed = jumpSpeed;
+                jumpPos = transform.position.y;
+                isJump = true;
+                jumpTime = 0.0f;
+            }
+            else
+            {
+                isJump = false;
+            }
+        }
+        else if (isJump)
+        {
+            //上方向キーを押しているか
+            bool pushUpKey = verticalKey > 0;
+            //現在の高さが飛べる高さより下か
+            bool canHeight = jumpPos + jumpHeight > transform.position.y;
+            //ジャンプ時間が長くなりすぎてないか
+            bool canTime = jumpLimitTime > jumpTime;
+
+            if (pushUpKey && canHeight && canTime && !isHead)
+            {
+                ySpeed = jumpSpeed;
+                jumpTime += Time.deltaTime;
+            }
+            else
+            {
+                isJump = false;
+                jumpTime = 0.0f;
+            }
+            if (isJump)
+            {
+                ySpeed *= jumpCurve.Evaluate(jumpTime);
+            }
+            return ySpeed;
+        }
 
         //何かを踏んだ際のジャンプ
         if (isOtherJump)
@@ -168,6 +217,13 @@ public class PlayerScript : MonoBehaviour
             transform.localScale = new Vector3(1, 1, 1);
             isRun = true;
             dashTime += Time.deltaTime;
+            xSpeed = Speed;
+        }
+        else if (horizontalKey < 0)
+        {
+            transform.localScale = new Vector3(-1, 1, 1);
+            isRun = true;
+            dashTime += Time.deltaTime;
             xSpeed = -Speed;
         }
         else
@@ -199,7 +255,6 @@ public class PlayerScript : MonoBehaviour
         anim.SetBool("jump", isJump || isOtherJump);
         anim.SetBool("ground", isGround);
         anim.SetBool("run", isRun);
-        anim.SetBool("Down", isDown);
     }
 
     /// <summary>
@@ -266,10 +321,41 @@ public class PlayerScript : MonoBehaviour
             //GManager.instance.SubHeartNum();
         }
     }
-    
+    #region//ライフ
+    /// <summary>
+    /// ライフを追加ゆっぴーはいじっちゃだめよ❤
+    /// </summary>
+    ///
+    void Life()
+    {
+        if (GManager.instance.heartNum > 0)
+        {
+            GManager.instance.heartNum -= 1;
+            GManager.instance.Respawn(this.gameObject);
+            Debug.Log(GManager.instance.heartNum);
+
+
+        }
+        else if (GManager.instance.heartNum <= 0)
+        {
+            GameOvertext.gameObject.SetActive(true);
+            StartCoroutine(WaitLoad(2f));
+        }
+    }
+    IEnumerator WaitLoad(float timer)
+    {
+        fadeimage.Instance.StartFadeOut();
+        yield return new WaitForSeconds(timer);
+        SceneManager.LoadScene("ゲームオーバー画面");
+
+    }
+    #endregion
+
     #region//接触判定
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        bool enemy = (collision.collider.tag == enemyTag);
+        bool fallFloor = (collision.collider.tag == fallFloorTag);
         if (collision.collider.tag == enemyTag)
         {
             //踏みつけ判定になる高さ
@@ -285,12 +371,19 @@ public class PlayerScript : MonoBehaviour
                     ObjeCollsion o = collision.gameObject.GetComponent<ObjeCollsion>();
                     if (o != null)
                     {
-                        otherJumpHeight = o.boundHeight;//踏んづけたものから跳ねる高さを取得する
-                        o.playerStepOn = true;//踏んづけたものに対して踏んづけたことを通知する
-                        jumpPos = transform.position.y;//ジャンプした位置を記録する
-                        isOtherJump = true;
-                        isJump = true;
-                        jumpTime = 0.0f;
+                        if (enemy)
+                        {
+                            otherJumpHeight = o.boundHeight;//踏んづけたものから跳ねる高さを取得する
+                            o.playerStepOn = true;//踏んづけたものに対して踏んづけたことを通知する
+                            jumpPos = transform.position.y;//ジャンプした位置を記録する
+                            isOtherJump = true;
+                            isJump = true;
+                            jumpTime = 0.0f;
+                        }
+                        else
+                        {
+                            o.playerStepOn = true;
+                        }
                     }
                     else
                     {
@@ -304,6 +397,21 @@ public class PlayerScript : MonoBehaviour
                 }
             }
         }
+        else if (collision.collider.tag == moveFloorTag)
+        {
+            //踏みつけ判定になる高さ
+            float stepOnHeight = (capcol.size.y * (stepOnRate / 100f));
+            //踏みつけ判定のワールド座標
+            float judgePos = transform.position.y - (capcol.size.y / 2f) + stepOnHeight;
+            foreach (ContactPoint2D p in collision.contacts)
+            {
+                //動く床に乗っている
+                if (p.point.y < judgePos)
+                {
+
+                }
+            }
+        }
     }
     #endregion
     private void OnTriggerEnter2D(Collider2D other)
@@ -312,10 +420,15 @@ public class PlayerScript : MonoBehaviour
         {
             ReceiveDamage(false);
             Destroy(other.gameObject);
+
         }
         else if (other.gameObject == goal)
         {
             SceneManager.LoadScene("クリア画面");
+        }
+        else if (other.tag == "Enemy")
+        {
+            Life();
         }
     }
 }

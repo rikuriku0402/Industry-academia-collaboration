@@ -331,7 +331,7 @@ public class player : MonoBehaviour
         if (GManager.instance.heartNum > 0)
         {
             GManager.instance.heartNum -= 1;
-            GManager.instance.Respawn(this.gameObject);
+            GManager.instance.Respawn(gameObject);
             Debug.Log(GManager.instance.heartNum);
 
 
