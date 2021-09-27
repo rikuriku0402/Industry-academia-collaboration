@@ -24,11 +24,11 @@ public class GManager : MonoBehaviour
         if(instance==null)
         {
             instance = this;
-            DontDestroyOnLoad(this.gameObject);
+            //DontDestroyOnLoad(this.gameObject);
         }
         else
         {
-            Destroy(this.gameObject);
+            //Destroy(this.gameObject);
         }
     }
     public void RetryGame()
@@ -37,7 +37,6 @@ public class GManager : MonoBehaviour
         score = 0;
         stageNum = 1;
         continueNum = 0;
-        
     }
 
     public void Respawn(GameObject Player)

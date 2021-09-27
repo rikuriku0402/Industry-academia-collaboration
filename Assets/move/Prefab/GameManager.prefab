@@ -46,3 +46,7 @@ MonoBehaviour:
   score: 0
   stageNum: 0
   continueNum: 0
+  heartNum: 3
+  defaultHeartNum: 3
+  continuePoint: {fileID: 0}
+  isGameOver: 0
