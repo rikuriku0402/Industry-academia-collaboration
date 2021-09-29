@@ -31,6 +31,7 @@ public class player : MonoBehaviour
     private Animator anim = null;
     private Rigidbody2D rb = null;
     private CapsuleCollider2D capcol = null;
+    private FloorMove moveObj = null;
     private bool isGround = false;
     private bool isHead = false;
     private bool isJump = false;
@@ -83,6 +84,11 @@ public class player : MonoBehaviour
             SetAnimation();
 
             //移動速度を設定
+            Vector2 addVelocity = Vector2.zero;
+            if(moveObj!=null)
+            {
+                addVelocity = moveObj.GetVelocity();
+            }
             rb.velocity = new Vector2(xSpeed,ySpeed);
         }
         else
@@ -397,6 +403,7 @@ public class player : MonoBehaviour
                 }
             }   
         }
+        //動く床
         else if(collision.collider.tag==moveFloorTag)
         {
             //踏みつけ判定になる高さ
@@ -408,9 +415,17 @@ public class player : MonoBehaviour
                 //動く床に乗っている
                 if(p.point.y<judgePos)
                 {
-                    
+                    moveObj = collision.gameObject.GetComponent<FloorMove>();
                 }
             }
+        }
+    }
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if(collision.collider.tag==moveFloorTag)
+        {
+            //動く床から離れた
+            moveObj = null;
         }
     }
     #endregion

@@ -31,58 +31,62 @@ public class FloorMove : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        //通常行進
-        if (!returnPoint)
+        if (movePoint != null && movePoint.Length > 1 && rb != null)
         {
-            int nextPoint = nowPoint + 1;
-
-            //目標ポイントとの誤差がわずかになるまで移動
-            if (Vector2.Distance(transform.position, movePoint[nextPoint].transform.position) > 0.1f)
+            //通常行進
+            if (!returnPoint)
             {
-                //現在地から次のポイントへのベクトルを作成
-                Vector2 toVector = Vector2.MoveTowards(transform.position, movePoint[nextPoint].transform.position, speed * Time.deltaTime);
+                int nextPoint = nowPoint + 1;
 
-                //次のポイントへ移動
-                rb.MovePosition(toVector);
+                //目標ポイントとの誤差がわずかになるまで移動
+                if (Vector2.Distance(transform.position, movePoint[nextPoint].transform.position) > 0.1f)
+                {
+                    //現在地から次のポイントへのベクトルを作成
+                    Vector2 toVector = Vector2.MoveTowards(transform.position, movePoint[nextPoint].transform.position, speed * Time.deltaTime);
+
+                    //次のポイントへ移動
+                    rb.MovePosition(toVector);
+                }
+                else
+                {
+                    rb.MovePosition(movePoint[nextPoint].transform.position);
+                    ++nowPoint;
+
+                    //現在地が配列の最後だった場合
+                    if (nowPoint + 1 >= movePoint.Length)
+                    {
+                        returnPoint = true;
+                    }
+                }
             }
             else
             {
-                rb.MovePosition(movePoint[nextPoint].transform.position);
-                ++nowPoint;
+                int nextPoint = nowPoint - 1;
 
-                //現在地が配列の最後だった場合
-                if (nowPoint + 1 >= movePoint.Length)
+                //目標ポイントとの誤差がわずかになるまで移動
+                if (Vector2.Distance(transform.position, movePoint[nextPoint].transform.position) > 0.1f)
                 {
-                    returnPoint = true;
+                    //現在地から次のポイントへのベクトルを作成
+                    Vector2 toVector = Vector2.MoveTowards(transform.position, movePoint[nextPoint].transform.position, speed * Time.deltaTime);
+
+                    //次のポイントへ移動
+                    rb.MovePosition(toVector);
+                }
+                //次のポイントを一つ戻す
+                else
+                {
+                    rb.MovePosition(movePoint[nextPoint].transform.position);
+                    --nowPoint;
+
+                    //現在地が配列の最初だった場合
+                    if (nowPoint <= 0)
+                    {
+                        returnPoint = false;
+                    }
                 }
             }
+            myVelocity = (rb.position - oldPos) / Time.deltaTime;
+            oldPos = rb.position;
         }
-        else
-        {
-            int nextPoint = nowPoint - 1;
-
-            //目標ポイントとの誤差がわずかになるまで移動
-            if (Vector2.Distance(transform.position, movePoint[nextPoint].transform.position) > 0.1f)
-            {
-                //現在地から次のポイントへのベクトルを作成
-                Vector2 toVector = Vector2.MoveTowards(transform.position, movePoint[nextPoint].transform.position, speed * Time.deltaTime);
-
-                //次のポイントへ移動
-                rb.MovePosition(toVector);
-            }
-            else
-            {
-                rb.MovePosition(movePoint[nextPoint].transform.position);
-                --nowPoint;
-
-                //現在地が配列の最初だった場合
-                if (nowPoint <= 0)
-                {
-                    returnPoint = false;
-                }
-            }
-        }
-        myVelocity = (rb.position - oldPos) / Time.deltaTime;
-        oldPos = rb.position;
-    } 
+    }
 }
