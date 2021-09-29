@@ -6,6 +6,7 @@ public class GrouneCheck : MonoBehaviour
 {
     #region
     [Header("エフェクトがついた床を判定するが")] public bool checkPlatformGound = true;
+
     private string groundTag = "Ground";
     private string platformTag = "GroundPlatform";
     private string MoveFlooTag = "MoveFloor";

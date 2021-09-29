@@ -27,6 +27,8 @@ public class FlooFall : MonoBehaviour
     private float fallingTimer = 0.0f;
     private float returnTimer = 0.0f;
     private float blinkTimer = 0.0f;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -56,7 +58,7 @@ public class FlooFall : MonoBehaviour
     }
 
     //Update is called once per frame
-    void Update()
+    private void Update()
     {
         //Player一回でも乗ったらフラグをオンに
         if (oc.playerStepOn)
@@ -68,8 +70,9 @@ public class FlooFall : MonoBehaviour
         if (isOn && !isFall)
         {
             //振動する
-            spriteObj.transform.position = spriteDefaultPos + new
-                Vector3(Mathf.Sin(timer * vibrationSpeed) * vibrationWidth, 0, 0);
+            //float x = curve.Evaluate(timer * vibrationSpeed) * vibrationWidth;
+            spriteObj.transform.position = spriteDefaultPos + new Vector3(Mathf.Sin(timer*vibrationSpeed)+vibrationWidth, 0, 0);
+            //timer += Time.deltaTime;
 
             //一定時間経ったら落ちる
             if (timer > fallTime)
@@ -137,16 +140,5 @@ public class FlooFall : MonoBehaviour
         }
 
     }
-    #endregion//
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if(collision.gameObject.CompareTag("Player"))
-        {
-            Invoke("Fall", 0.5f);
-        }
-    }
-    void Fall()
-    {
-        GetComponent<Rigidbody2D>().isKinematic = false;
-    }
+    #endregion// 
 }

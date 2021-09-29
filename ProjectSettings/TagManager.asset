@@ -12,6 +12,7 @@ TagManager:
   - GroundPlatform
   - Floor
   - FllorFall
+  - MoveFloor
   layers:
   - Default
   - TransparentFX
@@ -48,4 +49,13 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: "\u80CC\u666F"
+    uniqueID: 1857218165
+    locked: 0
+  - name: "\u98FE\u308A"
+    uniqueID: 516328609
+    locked: 0
+  - name: "\u30B9\u30C6\u30FC\u30B8"
+    uniqueID: 2329272485
     locked: 0
