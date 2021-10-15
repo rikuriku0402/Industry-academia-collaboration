@@ -128,7 +128,7 @@ public class player : MonoBehaviour
             bool canHeight = jumpPos + jumpHeight > transform.position.y;
             //ジャンプ時間が長くなりすぎてないか
             bool canTime = jumpLimitTime > jumpTime;
-
+            anim.Play("Cat Jump");
             if (pushUpKey && canHeight && canTime && !isHead)
             {
                 ySpeed = jumpSpeed;
@@ -190,16 +190,18 @@ public class player : MonoBehaviour
             bool canHeight = jumpPos + jumpHeight > transform.position.y;
             //ジャンプ時間が長くなりすぎてないか
             bool canTime = jumpLimitTime > jumpTime;
-
+            //anim.Play("Cat Jump");
             if (pushUpKey && canHeight && canTime && !isHead)
             {
                 ySpeed = jumpSpeed;
                 jumpTime += Time.deltaTime;
+                
             }
             else
             {
                 isJump = false;
                 jumpTime = 0.0f;
+                
             }
         }
         //アニメーションカーブを速度に適用
@@ -295,17 +297,17 @@ public class player : MonoBehaviour
         return false;
     }
     /// <summary>
-    /// コンテニューする
+    /// コンテニューする(コメントアウト)
     /// </summary>
-    public void ContinuePlayer()
-    {
-        isDown = false;
-        anim.Play("Cat Run");
-        isJump = false;
-        isOtherJump = false;
-        isRun = false;
-        nonDownAnim = false;
-    }
+    //public void ContinuePlayer()
+    //{
+    //    isDown = false;
+    //    anim.Play("Cat Run");
+    //    isJump = false;
+    //    isOtherJump = false;
+    //    isRun = false;
+    //    //nonDownAnim = false;
+    //}
 
     private void ReceiveDamage(bool downAnim)
     {
@@ -345,7 +347,7 @@ public class player : MonoBehaviour
         else if (GManager.instance.heartNum <= 0)
         {
             GameOvertext.gameObject.SetActive(true);
-            StartCoroutine(WaitLoad(2f));
+            StartCoroutine(WaitLoad(0.5f));
         }
     }
     IEnumerator WaitLoad(float timer)
