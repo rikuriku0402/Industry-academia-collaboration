@@ -346,7 +346,7 @@ public class player : MonoBehaviour
         }
         else if (GManager.instance.heartNum <= 0)
         {
-            GameOvertext.gameObject.SetActive(true);
+            //GameOvertext.gameObject.SetActive(true);
             StartCoroutine(WaitLoad(0.5f));
         }
     }
