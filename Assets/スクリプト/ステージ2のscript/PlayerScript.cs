@@ -31,6 +31,7 @@ public class PlayerScript : MonoBehaviour
     private Animator anim = null;
     private Rigidbody2D rb = null;
     private CapsuleCollider2D capcol = null;
+    //private FloorMove moveObj = null;
     private bool isGround = false;
     private bool isHead = false;
     private bool isJump = false;
@@ -122,7 +123,7 @@ public class PlayerScript : MonoBehaviour
             bool canHeight = jumpPos + jumpHeight > transform.position.y;
             //ジャンプ時間が長くなりすぎてないか
             bool canTime = jumpLimitTime > jumpTime;
-
+            anim.Play("Cat Jump");
             if (pushUpKey && canHeight && canTime && !isHead)
             {
                 ySpeed = jumpSpeed;
@@ -231,6 +232,7 @@ public class PlayerScript : MonoBehaviour
             isRun = false;
             xSpeed = 0.0f;
             dashTime = 0.0f;
+            xSpeed = -Speed;
         }
         //前回の入力ダッシュの反転を判断して速度を変える
         if (horizontalKey > 0 && beforKey < 0)
@@ -288,18 +290,18 @@ public class PlayerScript : MonoBehaviour
         }
         return false;
     }
-    /// <summary>
-    /// コンテニューする
-    /// </summary>
-    public void ContinuePlayer()
-    {
-        isDown = false;
-        anim.Play("Cat Run");
-        isJump = false;
-        isOtherJump = false;
-        isRun = false;
-        nonDownAnim = false;
-    }
+    ///// <summary>
+    ///// コンテニューする(コメントアウト)
+    ///// </summary>
+    //public void ContinuePlayer()
+    //{
+    //    isDown = false;
+    //    anim.Play("Cat Run");
+    //    isJump = false;
+    //    isOtherJump = false;
+    //    isRun = false;
+    //    nonDownAnim = false;
+    //}
 
     private void ReceiveDamage(bool downAnim)
     {
@@ -338,8 +340,8 @@ public class PlayerScript : MonoBehaviour
         }
         else if (GManager.instance.heartNum <= 0)
         {
-            GameOvertext.gameObject.SetActive(true);
-            StartCoroutine(WaitLoad(2f));
+            //GameOvertext.gameObject.SetActive(true);
+            StartCoroutine(WaitLoad(0.5f));
         }
     }
     IEnumerator WaitLoad(float timer)

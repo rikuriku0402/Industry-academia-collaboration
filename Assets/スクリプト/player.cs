@@ -239,6 +239,7 @@ public class player : MonoBehaviour
             isRun = false;
             xSpeed = 0.0f;
             dashTime = 0.0f;
+            xSpeed = -Speed;
         }
         //前回の入力ダッシュの反転を判断して速度を変える
         if (horizontalKey > 0 && beforKey < 0)
@@ -418,6 +419,21 @@ public class player : MonoBehaviour
                 }
             }
         }
+        else if (collision.collider.tag == moveFloorTag)
+            {
+                //踏みつけ判定になる高さ
+                float stepOnHeight = (capcol.size.y * (stepOnRate / 100f));
+                //踏みつけ判定のワールド座標
+                float judgePos = transform.position.y - (capcol.size.y / 2f) + stepOnHeight;
+                foreach (ContactPoint2D p in collision.contacts)
+                {
+                    //動く床に乗っている
+                    if (p.point.y < judgePos)
+                    {
+
+                    }
+                }
+            }
     }
     private void OnCollisionExit2D(Collision2D collision)
     {

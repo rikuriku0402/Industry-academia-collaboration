@@ -16,7 +16,7 @@ public class Haristage2 : MonoBehaviour
     }
     IEnumerator WaitLoad(float timer)
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(0.5f);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

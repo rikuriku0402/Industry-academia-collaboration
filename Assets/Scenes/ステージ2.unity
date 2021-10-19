@@ -4345,7 +4345,7 @@ GameObject:
   - component: {fileID: 269535272}
   m_Layer: 0
   m_Name: "\u91DD (33)"
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -31859,7 +31859,7 @@ GameObject:
   - component: {fileID: 762422183}
   m_Layer: 0
   m_Name: "\u91DD (32)"
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -37464,7 +37464,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &1415580768
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -38430,7 +38430,7 @@ PrefabInstance:
     - target: {fileID: 7242434501736382078, guid: 69fd841bd0ccfc34393d2a043f744956,
         type: 3}
       propertyPath: defaultHeartNum
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 69fd841bd0ccfc34393d2a043f744956, type: 3}
@@ -38843,7 +38843,7 @@ GameObject:
   - component: {fileID: 1545275334}
   m_Layer: 0
   m_Name: "\u91DD (30)"
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -42303,7 +42303,7 @@ GameObject:
   - component: {fileID: 2002346157}
   m_Layer: 0
   m_Name: "\u91DD (57)"
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -42348,7 +42348,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.32707715, y: 0}
+  m_Offset: {x: 0.32707715, y: -0.10509314}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -42359,7 +42359,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.5508232, y: 0.64}
+  m_Size: {x: 2.5508232, y: 0.4298137}
   m_EdgeRadius: 0
 --- !u!212 &2002346159
 SpriteRenderer:
