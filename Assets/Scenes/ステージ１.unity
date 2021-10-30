@@ -1983,7 +1983,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 512535819}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.9700007, y: -0.19, z: -9.68}
+  m_LocalPosition: {x: 3.4199991, y: -3.2, z: -9.68}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1271614792}
@@ -2992,7 +2992,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 770996748}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.2960753, y: -0.17960209, z: -9.68}
+  m_LocalPosition: {x: 5.0300455, y: -3.0000002, z: -9.68}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -12658,16 +12658,6 @@ Tilemap:
       serializedVersion: 2
       m_TileIndex: 5
       m_TileSpriteIndex: 13
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_TileObjectToInstantiateIndex: 65535
-      dummyAlignment: 0
-      m_AllTileFlags: 1073741825
-  - first: {x: 146, y: 3, z: 0}
-    second:
-      serializedVersion: 2
-      m_TileIndex: 2
-      m_TileSpriteIndex: 5
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -22999,7 +22989,7 @@ Tilemap:
     m_Data: {fileID: 11400000, guid: 35eb557e5cb21a2469c32f1480517f34, type: 2}
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 463
+  - m_RefCount: 462
     m_Data: {fileID: 11400000, guid: d1cf13d278ff5f74bbaa14c4e35fbd65, type: 2}
   - m_RefCount: 0
     m_Data: {fileID: 0}
@@ -23102,7 +23092,7 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 3
     m_Data: {fileID: 21300064, guid: 962e67ff7370f0c4492dca70b64f89e9, type: 3}
-  - m_RefCount: 463
+  - m_RefCount: 462
     m_Data: {fileID: 21300000, guid: a973d9da279cd7448a606d677706a985, type: 3}
   - m_RefCount: 0
     m_Data: {fileID: 0}
@@ -23179,7 +23169,7 @@ Tilemap:
   - m_RefCount: 151
     m_Data: {fileID: 21300000, guid: 2390fb3ba2db3d247bef43af1476c848, type: 3}
   m_TileMatrixArray:
-  - m_RefCount: 1904
+  - m_RefCount: 1903
     m_Data:
       e00: 1
       e01: 0
@@ -23198,7 +23188,7 @@ Tilemap:
       e32: 0
       e33: 1
   m_TileColorArray:
-  - m_RefCount: 1904
+  - m_RefCount: 1903
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
@@ -24692,7 +24682,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 2
-  m_Size: {x: 78.56253, y: 8}
+  m_Size: {x: 77.51111, y: 8}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -24706,7 +24696,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1503103822}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 76.63, y: 3.43, z: 0}
+  m_LocalPosition: {x: 76.632, y: 3.43, z: 0}
   m_LocalScale: {x: 2.1574, y: 2.1574, z: 2.1574}
   m_Children: []
   m_Father: {fileID: 0}
@@ -26174,11 +26164,41 @@ PrefabInstance:
       propertyPath: m_Offset.x
       value: 0.036652625
       objectReference: {fileID: 0}
+    - target: {fileID: 6510202783833839914, guid: 0949e6651c261034186033228de1657d,
+        type: 3}
+      propertyPath: m_Interpolate
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6510202783833839914, guid: 0949e6651c261034186033228de1657d,
+        type: 3}
+      propertyPath: m_GravityScale
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6510202783833839914, guid: 0949e6651c261034186033228de1657d,
+        type: 3}
+      propertyPath: m_SleepingMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6510202783833839956, guid: 0949e6651c261034186033228de1657d,
         type: 3}
       propertyPath: goal
       value: 
       objectReference: {fileID: 966359220}
+    - target: {fileID: 6510202783833839956, guid: 0949e6651c261034186033228de1657d,
+        type: 3}
+      propertyPath: jumpSpeed
+      value: 7.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6510202783833839956, guid: 0949e6651c261034186033228de1657d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6510202783833839956, guid: 0949e6651c261034186033228de1657d,
+        type: 3}
+      propertyPath: jumpHeight
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 6510202783833839956, guid: 0949e6651c261034186033228de1657d,
         type: 3}
       propertyPath: GameOvertext
@@ -26192,12 +26212,12 @@ PrefabInstance:
     - target: {fileID: 6510202783833839957, guid: 0949e6651c261034186033228de1657d,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.02
+      value: 3.37
       objectReference: {fileID: 0}
     - target: {fileID: 6510202783833839957, guid: 0949e6651c261034186033228de1657d,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.19
+      value: -3.2
       objectReference: {fileID: 0}
     - target: {fileID: 6510202783833839957, guid: 0949e6651c261034186033228de1657d,
         type: 3}

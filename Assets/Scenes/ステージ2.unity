@@ -1506,12 +1506,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 91923914}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cb2c19f4442709d4c87575ca624941db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dx: 5
+  dx: 1
 --- !u!50 &91923917
 Rigidbody2D:
   serializedVersion: 4
@@ -38355,7 +38355,7 @@ PrefabInstance:
     - target: {fileID: 35253088343019454, guid: 69fd841bd0ccfc34393d2a043f744956,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -291.20737
+      value: -6.2
       objectReference: {fileID: 0}
     - target: {fileID: 35253088343019454, guid: 69fd841bd0ccfc34393d2a043f744956,
         type: 3}
