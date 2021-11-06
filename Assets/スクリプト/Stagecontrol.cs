@@ -11,11 +11,9 @@ public class Stagecontrol : MonoBehaviour
 
 
     private player p;
-    private int nextStageNum;//動画を見て追加した
-    private bool startFade = false;//動画を見て追加した
+    
     private bool doGameOver = false;//動画を見て追加した
-    private bool retryGame = false;//動画を見て追加した
-    private bool doSceneCharge = false;//動画を見て追加した
+    
 
 
 
@@ -49,7 +47,7 @@ public class Stagecontrol : MonoBehaviour
             doGameOver = true;
         }
         //プレイヤーがやられた時の処理動画を見て追加した
-       else if(p!=null&&p.IsContinueWaiting() && !doGameOver)
+       else if(p!=null&&p && !doGameOver)
         {
             if(continuePoint.Length>GManager.instance.continueNum)
             {

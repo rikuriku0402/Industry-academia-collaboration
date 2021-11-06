@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class player : MonoBehaviour
 {
     #region//インスペクターで設定する
-    [Header("移動速度")] public float Speed;
+    [SerializeField]  float Speed = 1000f;
     [Header("重力")] public float gravity;
     [Header("ジャンプ速度")] public float jumpSpeed;
     [Header("ジャンプする高さ")] public float jumpHeight;
@@ -39,7 +39,6 @@ public class player : MonoBehaviour
     private bool isSibou = false;
     private bool isDown = false;
     private bool isOtherJump = false;
-    private bool nonDownAnim = false;
     private float jumpPos = 0.0f;
     private float otherJumpHeight = 0.0f;
     private float dashTime = 0.0f;
@@ -61,11 +60,7 @@ public class player : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) &&
-            this.rb.velocity.y == .0)
-        {
-            this.rb.AddForce(transform.up * this.jumpForce);
-        }
+        
     }
 
     void FixedUpdate()
@@ -76,9 +71,7 @@ public class player : MonoBehaviour
             isGround = ground.IsGround();
             isHead = head.IsGround();
 
-            //各種座標軸の速度を求める
-            float xSpeed = GetXSpeed();
-            float ySpeed = GetYSpeed();
+            
 
             //アニメーションを適用
             SetAnimation();
@@ -89,7 +82,7 @@ public class player : MonoBehaviour
             {
                 addVelocity = moveObj.GetVelocity();
             }
-            rb.velocity = new Vector2(xSpeed, ySpeed) + addVelocity;
+            
         }
         else
         {
@@ -101,160 +94,13 @@ public class player : MonoBehaviour
     /// Y成分で必要な計算をし速度を返す
     /// </summary>
     /// <returns>Y軸の速さ</returns>
-    private float GetYSpeed()
-    {
-        float verticalKey = Input.GetAxis("Vertical");
-        float ySpeed = -gravity;
+   
 
-        if (isGround)
-        {
-            if (verticalKey > 0)
-            {
-                ySpeed = jumpSpeed;
-                jumpPos = transform.position.y;
-                isJump = true;
-                jumpTime = 0.0f;
-            }
-            else
-            {
-                isJump = false;
-            }
-        }
-        else if (isJump)
-        {
-            //上方向キーを押しているか
-            bool pushUpKey = verticalKey > 0;
-            //現在の高さが飛べる高さより下か
-            bool canHeight = jumpPos + jumpHeight > transform.position.y;
-            //ジャンプ時間が長くなりすぎてないか
-            bool canTime = jumpLimitTime > jumpTime;
-            anim.Play("Cat Jump");
-            if (pushUpKey && canHeight && canTime && !isHead)
-            {
-                ySpeed = jumpSpeed;
-                jumpTime += Time.deltaTime;
-            }
-            else
-            {
-                isJump = false;
-                jumpTime = 0.0f;
-            }
-            if (isJump)
-            {
-                ySpeed *= jumpCurve.Evaluate(jumpTime);
-            }
-            return ySpeed;
-        }
-
-        //何かを踏んだ際のジャンプ
-        if (isOtherJump)
-        {
-            //現在の高さが飛べる高さより下か
-            bool canHeight = jumpPos + otherJumpHeight > transform.position.y;
-
-            //ジャンプした時間が長くなりすぎていないか
-            bool canTime = jumpLimitTime > jumpTime;
-
-            if (canHeight && canTime && !isHead)
-            {
-                ySpeed = jumpSpeed;
-                jumpTime += Time.deltaTime;
-            }
-            else
-            {
-                isOtherJump = false;
-                jumpTime = 0.0f;
-            }
-        }
-        //地面にいるとき
-        else if (isGround)
-        {
-            if (verticalKey > 0)
-            {
-                ySpeed = jumpSpeed;
-                jumpPos = transform.position.y;//ジャンプした位置を記録する
-                isJump = true;
-                jumpTime = 0.0f;
-            }
-            else
-            {
-                isJump = false;
-            }
-        }
-        //ジャンプ中
-        else if (isJump)
-        {
-            //上方向キーを押しているか
-            bool pushUpKey = verticalKey > 0;
-            //現在の高さが飛べる高さより下か
-            bool canHeight = jumpPos + jumpHeight > transform.position.y;
-            //ジャンプ時間が長くなりすぎてないか
-            bool canTime = jumpLimitTime > jumpTime;
-            //anim.Play("Cat Jump");
-            if (pushUpKey && canHeight && canTime && !isHead)
-            {
-                ySpeed = jumpSpeed;
-                jumpTime += Time.deltaTime;
-                
-            }
-            else
-            {
-                isJump = false;
-                jumpTime = 0.0f;
-                
-            }
-        }
-        //アニメーションカーブを速度に適用
-        if (isJump || isOtherJump)
-        {
-            ySpeed *= jumpCurve.Evaluate(jumpTime);
-        }
-        return ySpeed;
-    }
-    /// <summary>
-    /// X成分で必要な計算をし、速度を返す
-    /// </summary>
-    /// <returns>X軸の速さ</returns>
-    private float GetXSpeed()
-    {
-        float horizontalKey = Input.GetAxis("Horizontal");
-        float xSpeed = 0.0f;
-
-        if (horizontalKey > 0)
-        {
-            transform.localScale = new Vector3(1, 1, 1);
-            isRun = true;
-            dashTime += Time.deltaTime;
-            xSpeed = Speed;
-        }
-        else if (horizontalKey < 0)
-        {
-            transform.localScale = new Vector3(-1, 1, 1);
-            isRun = true;
-            dashTime += Time.deltaTime;
-            xSpeed = -Speed;
-        }
-        else
-        {
-            isRun = false;
-            xSpeed = 0.0f;
-            dashTime = 0.0f;
-            xSpeed = -Speed;
-        }
-        //前回の入力ダッシュの反転を判断して速度を変える
-        if (horizontalKey > 0 && beforKey < 0)
-        {
-            dashTime = 0.0f;
-        }
-        else if (horizontalKey < 0 && beforKey > 0)
-        {
-            dashTime = 0.0f;
-        }
-        beforKey = horizontalKey;
-        xSpeed *= dashCurve.Evaluate(dashTime);
-        beforKey = horizontalKey;
-        return xSpeed;
-    }
+        
+        
+        
+        
+        
 
     /// <summary>
     /// アニメーションを設定する
@@ -266,70 +112,9 @@ public class player : MonoBehaviour
         anim.SetBool("run", isRun);
     }
 
-    /// <summary>
-    /// コンテニュー待機状態か
-    /// </summary>
-    /// <returns></returns>
-    public bool IsContinueWaiting()
-    {
-        if (GManager.instance.isGameOver)
-        {
-            return false;
-        }
-        else
-        {
-            return IsDownAnimEnd() || nonDownAnim;
-        }
-    }
-    //downアニメーションが完了しているかどうか
-    private bool IsDownAnimEnd()
-    {
-        if (isDown && anim != null)
-        {
-            AnimatorStateInfo currentState = anim.GetCurrentAnimatorStateInfo(0);
-            if (currentState.IsName("Cat sibou"))
-            {
-                if (currentState.normalizedTime >= 1)
-                {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-    /// <summary>
-    /// コンテニューする(コメントアウト)
-    /// </summary>
-    //public void ContinuePlayer()
-    //{
-    //    isDown = false;
-    //    anim.Play("Cat Run");
-    //    isJump = false;
-    //    isOtherJump = false;
-    //    isRun = false;
-    //    //nonDownAnim = false;
-    //}
+    
 
-    private void ReceiveDamage(bool downAnim)
-    {
-        if (isDown)
-        {
-            return;
-        }
-        else
-        {
-            if (downAnim)
-            {
-                anim.Play("Cat sibou");
-            }
-            else
-            {
-                isSibou = true;
-            }
-
-            //GManager.instance.SubHeartNum();
-        }
-    }
+    
     #region//ライフ
     /// <summary>
     /// ライフを追加ゆっぴーはいじっちゃだめよ❤
@@ -413,7 +198,7 @@ public class player : MonoBehaviour
                 {
                     if (enemy)
                     {
-                        ReceiveDamage(true);
+                        
                         break;
                     }
                 }
@@ -448,7 +233,7 @@ public class player : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            ReceiveDamage(false);
+            
             Destroy(other.gameObject);
 
         }
