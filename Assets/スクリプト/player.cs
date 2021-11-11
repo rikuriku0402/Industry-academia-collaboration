@@ -28,7 +28,7 @@ public class player : MonoBehaviour
     #endregion
 
     #region//プライベート変数
-    private Animator anim = null;
+    //private Animator anim = null;
     private Rigidbody2D rb = null;
     private CapsuleCollider2D capcol = null;
     private FloorMove moveObj = null;
@@ -41,8 +41,6 @@ public class player : MonoBehaviour
     private bool isOtherJump = false;
     private float jumpPos = 0.0f;
     private float otherJumpHeight = 0.0f;
-    private float dashTime = 0.0f;
-    private float beforKey = 0.0f;
     private float jumpTime = 0.0f;
     private string enemyTag = "Enemy";
     private string fallFloorTag = "FloorFall";
@@ -53,7 +51,7 @@ public class player : MonoBehaviour
 
     void Start()
     {
-        anim = GetComponent<Animator>();
+        //anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         capcol = GetComponent<CapsuleCollider2D>();
     }
@@ -90,26 +88,12 @@ public class player : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Y成分で必要な計算をし速度を返す
-    /// </summary>
-    /// <returns>Y軸の速さ</returns>
-   
-
-        
-        
-        
-        
-        
-
-    /// <summary>
-    /// アニメーションを設定する
-    /// </summary>
+    
     private void SetAnimation()
     {
-        anim.SetBool("jump", isJump || isOtherJump);
-        anim.SetBool("ground", isGround);
-        anim.SetBool("run", isRun);
+        //anim.SetBool("jump", isJump || isOtherJump);
+        //anim.SetBool("ground", isGround);
+        //anim.SetBool("run", isRun);
     }
 
     

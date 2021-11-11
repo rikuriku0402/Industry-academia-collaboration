@@ -8,6 +8,7 @@ public class PlayerJump : MonoBehaviour
 
     private PlayerWalk playerWalk;
     private Rigidbody2D rb;
+    private Animator anim; 
 
     private void Start()
     {
@@ -16,16 +17,18 @@ public class PlayerJump : MonoBehaviour
         playerWalk = GetComponent<PlayerWalk>();
 
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetMouseButtonDown(0))
         {
             // 接地しているときのみ、ジャンプできる（多段ジャンプをさせない）
             if (playerWalk.isGround)
             {
                 rb.AddForce(Vector2.up * jumpPower);
+                anim.SetBool("Cat Run", true);
             }
         }
     }
