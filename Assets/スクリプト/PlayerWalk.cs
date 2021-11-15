@@ -12,39 +12,48 @@ public class PlayerWalk : MonoBehaviour
     private Rigidbody2D rb;
     private Vector3 defalutScale;
 
-    private Animator anim = null;
+    [SerializeField]
+    Animator anim;
+
+    //private Animator anim = null;
     
         private void Start()
         {
 
         anim = GetComponent<Animator>();
             // ゲームプレイ中、頻繁に呼び出されるコンポーネントは Start 内でキャッシュしておく
-            // 毎回 GetComponent すると負荷が高くなるため
-            rb = GetComponent<Rigidbody2D>();
+            // 毎回 GetComponent すると負荷が高くなるため    
+        rb = GetComponent<Rigidbody2D>();
 
             // 開始時のローカルスケールの値を記憶しておく
-            defalutScale = transform.localScale;
+        defalutScale = transform.localScale;
         }
+    private void FixedUpdate()
+    {
+        anim.SetBool("Ground", isGround);
+    }
     private void Update()
     {
+        
+        //anim.Play("1penguin＿_Jump");
         // 左右方向の入力を受け取る
-        var input_h = Input.GetAxis("Horizontal");
-        if(input_h > 0)
+        float horizontalKey = Input.GetAxis("Horizontal");
+
+        
+        if(horizontalKey > 0)
         {
-            anim.SetBool("Cat Run",true);
+            anim.SetBool("Run", true);
         }
-        else if (input_h < 0)
+        else if (horizontalKey < 0)
         {
-            anim.SetBool("Cat Run", true);
+            anim.SetBool("Run", true);
         }
         else
         {
-            anim.SetBool("Cat Run", false);
+            anim.SetBool("Run", false);
         }
-        {
-            Walk(input_h);
-        }
-        }
+
+    }
 
         // 水平方向の移動
         private void Walk(float inputValue)
@@ -59,14 +68,14 @@ public class PlayerWalk : MonoBehaviour
             }
         }
 
-        // 接地判定
-        private void OnCollisionEnter2D(Collision2D collision)
-        {
-            isGround = true;
-        }
-
-        private void OnCollisionExit2D(Collision2D collision)
-        {
-            isGround = false;
-        }
+    // 接地判定
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        isGround = true;
     }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        isGround = false;
+    }
+}

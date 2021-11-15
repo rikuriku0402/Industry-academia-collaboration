@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class player : MonoBehaviour
 {
     #region//インスペクターで設定する
-    [SerializeField]  float Speed = 1000f;
+    [SerializeField]  float speed = 1000f;
     [Header("重力")] public float gravity;
     [Header("ジャンプ速度")] public float jumpSpeed;
     [Header("ジャンプする高さ")] public float jumpHeight;
@@ -32,6 +32,7 @@ public class player : MonoBehaviour
     private Rigidbody2D rb = null;
     private CapsuleCollider2D capcol = null;
     private FloorMove moveObj = null;
+    private Animator anim = null;
     private bool isGround = false;
     private bool isHead = false;
     private bool isJump = false;
@@ -63,37 +64,77 @@ public class player : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (!isSibou && !GManager.instance.isGameOver)
+        //接地判定を得る
+        isGround = ground.IsGround();
+        isHead = head.IsGround();
+
+        //キー入力されたら行動する
+        float horizontalKey = Input.GetAxis("Horizontal");
+        float xSpeed = 0.0f;
+        float ySpeed = -gravity;
+        float verticalKey = Input.GetAxis("Vertical");
+        if (isGround)
         {
-            //接地判定を得る
-            isGround = ground.IsGround();
-            isHead = head.IsGround();
-
-            
-
-            //アニメーションを適用
-            SetAnimation();
-
-            //移動速度を設定
-            Vector2 addVelocity = Vector2.zero;
-            if (moveObj != null)
+            if (verticalKey > 0)
             {
-                addVelocity = moveObj.GetVelocity();
+                ySpeed = jumpSpeed;
+                jumpPos = transform.position.y; //ジャンプした位置を記録する
+                isJump = true;
+                jumpTime = 0.0f;
             }
-            
+            else
+            {
+                isJump = false;
+            }
+        }
+        else if (isJump)
+        {
+            //上方向キーを押しているか
+            bool pushUpKey = verticalKey > 0;
+            //現在の高さが飛べる高さより下か
+            bool canHeight = jumpPos + jumpHeight > transform.position.y;
+            //ジャンプ時間が長くなりすぎてないか
+            bool canTime = jumpLimitTime > jumpTime;
+
+            if (pushUpKey && canHeight && canTime && !isHead)
+            {
+                ySpeed = jumpSpeed;
+                jumpTime += Time.deltaTime;
+            }
+            else
+            {
+                isJump = false;
+                jumpTime = 0.0f;
+            }
+        }
+        if (horizontalKey > 0)
+        {
+            transform.localScale = new Vector3(0.03826476f, 0.03826476f, 0.03826476f);
+            anim.SetBool("Run", true);
+            xSpeed = speed;
+        }
+        else if (horizontalKey < 0)
+        {
+            transform.localScale = new Vector3(-0.03826476f, 0.03826476f, 0.03826476f);
+            anim.SetBool("Run", true);
+            xSpeed = -speed;
         }
         else
         {
-            rb.velocity = new Vector2(0, -gravity);
+            anim.SetBool("Run", false);
+            xSpeed = 0.0f;
         }
+        anim.SetBool("Jump", isJump); //New
+        anim.SetBool("Ground", isGround); //New
+        rb.velocity = new Vector2(xSpeed, ySpeed);
     }
 
     
     private void SetAnimation()
     {
-        //anim.SetBool("jump", isJump || isOtherJump);
-        //anim.SetBool("ground", isGround);
-        //anim.SetBool("run", isRun);
+        anim.SetBool("Jump", isJump || isOtherJump);
+        anim.SetBool("Ground", isGround);
+        anim.SetBool("Run", isRun);
     }
 
     
@@ -139,7 +180,7 @@ public class player : MonoBehaviour
         if (enemy || moveFloor || fallFloor)
         {
             //踏みつけ判定になる高さ
-            float stepOnHeght = (capcol.size.y * (stepOnRate / 100f));
+            float stepOnHeght = capcol.size.y * (stepOnRate / 100f);
             //踏みつけ判定のワールド座標
             float judgePos = transform.position.y - (capcol.size.y / 2f) + stepOnHeght;
 

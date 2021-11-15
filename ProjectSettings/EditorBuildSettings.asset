@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/Scenes/RuleOption.unity
     guid: 9f5feebd8c62b7148804e9a7fc289ae6
   - enabled: 1
-    path: "Assets/Scenes/\u30B9\u30C6\u30FC\u30B8\uFF11.unity"
+    path: "Assets/Scenes/\u30DA\u30F3\u30AE\u30F3\u4E00\u53F7\u306E\u30B9\u30C6\u30FC\u30B8/\u30DA\u30F3\u30AE\u30F3\u4E00\u53F7.unity"
     guid: 6859f327e2630cc43983251c955b24cf
   - enabled: 1
     path: "Assets/Scenes/\u30AF\u30EA\u30A2\u753B\u9762.unity"
