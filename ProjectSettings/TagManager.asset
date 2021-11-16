@@ -13,6 +13,7 @@ TagManager:
   - Floor
   - FllorFall
   - MoveFloor
+  - Goal
   layers:
   - Default
   - TransparentFX
@@ -22,7 +23,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - Ground
   - 
   - 
   - 
@@ -58,4 +59,7 @@ TagManager:
     locked: 0
   - name: "\u30B9\u30C6\u30FC\u30B8"
     uniqueID: 2329272485
+    locked: 0
+  - name: Canvas
+    uniqueID: 1894349917
     locked: 0

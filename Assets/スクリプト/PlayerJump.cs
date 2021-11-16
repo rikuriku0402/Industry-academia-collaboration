@@ -12,7 +12,8 @@ public class PlayerJump : MonoBehaviour
     //private penguinAnim penguinanim;
     private Animator anim = null;
 
-    private bool isGround;
+    private bool isGround = false;
+    private bool isJump;
     private void Start()
     {
         // このスクリプトと同じゲームオブジェクトにアタッチされている、
@@ -23,11 +24,15 @@ public class PlayerJump : MonoBehaviour
         anim = GetComponent<Animator>();
     }
 
+    private void FixedUpdate()
+    {
+        anim.SetBool("Ground", isGround);
+    }
     private void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
-            anim.SetBool("Jump",true);
+            anim.SetBool("Jump",isJump);
             //anim.Play("1penguin＿_Jump");
 
             // 接地しているときのみ、ジャンプできる（多段ジャンプをさせない）
@@ -38,7 +43,8 @@ public class PlayerJump : MonoBehaviour
             }
             else
             {
-                anim.SetBool("Jump", false);
+                isJump = false;
+                //anim.SetBool("Jump", false);
             }
         }
         float speedx = Mathf.Abs(this.rb.velocity.x);
@@ -50,6 +56,8 @@ public class PlayerJump : MonoBehaviour
         else
         {
             this.anim.speed = 1.0f;
+            anim.SetBool("Jump",isJump);
+            anim.SetBool("Ground", isGround);
         }
     }
     private void AnimatePlayer()

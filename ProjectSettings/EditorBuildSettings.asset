@@ -8,15 +8,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/titleScene.unity
     guid: b766146e38fe83f4ab3d6373b58c2595
-  - enabled: 0
-    path: Assets/Scenes/RuleOption.unity
-    guid: 9f5feebd8c62b7148804e9a7fc289ae6
   - enabled: 1
     path: "Assets/Scenes/\u30DA\u30F3\u30AE\u30F3\u4E00\u53F7\u306E\u30B9\u30C6\u30FC\u30B8/\u30DA\u30F3\u30AE\u30F3\u4E00\u53F7.unity"
     guid: 6859f327e2630cc43983251c955b24cf
-  - enabled: 1
-    path: "Assets/Scenes/\u30AF\u30EA\u30A2\u753B\u9762.unity"
-    guid: 356fc564e7cad0f40a64324d0ad9fe33
   - enabled: 1
     path: "Assets/Scenes/\u30B9\u30C6\u30FC\u30B82.unity"
     guid: 89626b8e9ca7c2644b5e3d98a7c50094
@@ -24,6 +18,15 @@ EditorBuildSettings:
     path: "Assets/Scenes/\u30B9\u30C6\u30FC\u30B83.unity"
     guid: 476a45e82ff5f0e4989a47c2dc1f5c1f
   - enabled: 1
+    path: "Assets/Scenes/\u30DA\u30F3\u30AE\u30F3\u4E09\u53F7\u30B9\u30C6\u30FC\u30B8/\u30DA\u30F3\u30AE\u30F3\u4E09\u53F7.unity"
+    guid: 4f227bbc79b4de242aaadf842d083d4c
+  - enabled: 0
+    path: "Assets/Scenes/\u30AF\u30EA\u30A2\u753B\u9762.unity"
+    guid: 356fc564e7cad0f40a64324d0ad9fe33
+  - enabled: 0
+    path: Assets/Scenes/RuleOption.unity
+    guid: 9f5feebd8c62b7148804e9a7fc289ae6
+  - enabled: 0
     path: "Assets/Scenes/\u30B2\u30FC\u30E0\u30AA\u30FC\u30D0\u30FC\u753B\u9762.unity"
     guid: be029e22af3769f42807d44f1d242cdf
   m_configObjects: {}

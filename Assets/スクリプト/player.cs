@@ -137,9 +137,9 @@ public class player : MonoBehaviour
         anim.SetBool("Run", isRun);
     }
 
-    
 
-    
+
+
     #region//ライフ
     /// <summary>
     /// ライフを追加ゆっぴーはいじっちゃだめよ❤
@@ -170,90 +170,90 @@ public class player : MonoBehaviour
     }
     #endregion
 
-    #region//接触判定
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        bool enemy = (collision.collider.tag == enemyTag);
-        bool moveFloor = (collision.collider.tag == moveFloorTag);
-        bool fallFloor = (collision.collider.tag == fallFloorTag);
+    //#region//接触判定
+    //private void OnCollisionEnter2D(Collision2D collision)
+    //{
+    //    bool enemy = (collision.collider.tag == enemyTag);
+    //    bool moveFloor = (collision.collider.tag == moveFloorTag);
+    //    bool fallFloor = (collision.collider.tag == fallFloorTag);
 
-        if (enemy || moveFloor || fallFloor)
-        {
-            //踏みつけ判定になる高さ
-            float stepOnHeght = capcol.size.y * (stepOnRate / 100f);
-            //踏みつけ判定のワールド座標
-            float judgePos = transform.position.y - (capcol.size.y / 2f) + stepOnHeght;
+    //    if (enemy || moveFloor || fallFloor)
+    //    {
+    //        //踏みつけ判定になる高さ
+    //        float stepOnHeght = capcol.size.y * (stepOnRate / 100f);
+    //        //踏みつけ判定のワールド座標
+    //        float judgePos = transform.position.y - (capcol.size.y / 2f) + stepOnHeght;
 
-            foreach (ContactPoint2D p in collision.contacts)
-            {
-                if (p.point.y < judgePos)
-                {
-                    if (enemy || fallFloor)
-                    {
-                        //もう一度跳ねる
-                        ObjeCollsion o = collision.gameObject.GetComponent<ObjeCollsion>();
-                        if (o != null)
-                        {
-                            if (enemy)
-                            {
-                                otherJumpHeight = o.boundHeight;//踏んづけたものから跳ねる高さを取得する
-                                o.playerStepOn = true;//踏んづけたものに対して踏んづけたことを通知する
-                                jumpPos = transform.position.y;//ジャンプした位置を記録する
-                                isOtherJump = true;
-                                isJump = false;
-                                jumpTime = 0.0f;
-                            }
-                            else if (fallFloor)
-                            {
-                                o.playerStepOn = true;
-                            }
-                        }
+    //        foreach (ContactPoint2D p in collision.contacts)
+    //        {
+    //            if (p.point.y < judgePos)
+    //            {
+    //                if (enemy || fallFloor)
+    //                {
+    //                    //もう一度跳ねる
+    //                    ObjeCollsion o = collision.gameObject.GetComponent<ObjeCollsion>();
+    //                    if (o != null)
+    //                    {
+    //                        if (enemy)
+    //                        {
+    //                            otherJumpHeight = o.boundHeight;//踏んづけたものから跳ねる高さを取得する
+    //                            o.playerStepOn = true;//踏んづけたものに対して踏んづけたことを通知する
+    //                            jumpPos = transform.position.y;//ジャンプした位置を記録する
+    //                            isOtherJump = true;
+    //                            isJump = false;
+    //                            jumpTime = 0.0f;
+    //                        }
+    //                        else if (fallFloor)
+    //                        {
+    //                            o.playerStepOn = true;
+    //                        }
+    //                    }
 
-                        else
-                        {
-                            Debug.Log("objectCollsionがついてないよ！！！");
-                        }
-                    }
-                    else if (moveFloor)
-                    {
-                        moveObj = collision.gameObject.GetComponent<FloorMove>();
-                    }
-                }
-                else
-                {
-                    if (enemy)
-                    {
-                        
-                        break;
-                    }
-                }
-            }
-        }
-        else if (collision.collider.tag == moveFloorTag)
-            {
-                //踏みつけ判定になる高さ
-                float stepOnHeight = (capcol.size.y * (stepOnRate / 100f));
-                //踏みつけ判定のワールド座標
-                float judgePos = transform.position.y - (capcol.size.y / 2f) + stepOnHeight;
-                foreach (ContactPoint2D p in collision.contacts)
-                {
-                    //動く床に乗っている
-                    if (p.point.y < judgePos)
-                    {
+    //                    else
+    //                    {
+    //                        Debug.Log("objectCollsionがついてないよ！！！");
+    //                    }
+    //                }
+    //                else if (moveFloor)
+    //                {
+    //                    moveObj = collision.gameObject.GetComponent<FloorMove>();
+    //                }
+    //            }
+    //            else
+    //            {
+    //                if (enemy)
+    //                {
 
-                    }
-                }
-            }
-    }
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        if (collision.collider.tag == moveFloorTag)
-        {
-            //動く床から離れた
-            moveObj = null;
-        }
-    }
-    #endregion
+    //                    break;
+    //                }
+    //            }
+    //        }
+    //    }
+    //    else if (collision.collider.tag == moveFloorTag)
+    //        {
+    //            //踏みつけ判定になる高さ
+    //            float stepOnHeight = (capcol.size.y * (stepOnRate / 100f));
+    //            //踏みつけ判定のワールド座標
+    //            float judgePos = transform.position.y - (capcol.size.y / 2f) + stepOnHeight;
+    //            foreach (ContactPoint2D p in collision.contacts)
+    //            {
+    //                //動く床に乗っている
+    //                if (p.point.y < judgePos)
+    //                {
+
+    //                }
+    //            }
+    //        }
+    //}
+    //private void OnCollisionExit2D(Collision2D collision)
+    //{
+    //    if (collision.collider.tag == moveFloorTag)
+    //    {
+    //        //動く床から離れた
+    //        moveObj = null;
+    //    }
+    //}
+    //#endregion
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Player")
