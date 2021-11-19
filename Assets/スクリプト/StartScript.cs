@@ -26,7 +26,7 @@ public class StartScript : MonoBehaviour
     {
         if (!goNextScene && fade.IsFadeOutComplete())
         {
-            SceneManager.LoadScene("ステージ１");
+            SceneManager.LoadScene(0);
             goNextScene = true;
         }
     }
