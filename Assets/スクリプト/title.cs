@@ -11,23 +11,19 @@ public class title : MonoBehaviour
     private bool goNextScene = false;
 
     //スタートボタンを押されたら呼ばれる
+    //public void PressStart()
+    //{
+    //Debug.Log("Press Start!");
+    //if (firstPush)
+    //{
+    //    Debug.Log("Go Next Scene!");
+    //    fade.StartFadeOut();
+    //    firstPush = true;
+    //}
+    //}
+
     public void PressStart()
     {
-        Debug.Log("Press Start!");
-        if (!firstPush)
-        {
-            Debug.Log("Go Next Scene!");
-            fade.StartFadeOut();
-            firstPush = true;
-        }
-    }
-
-    private void Update()
-    {
-        if (!goNextScene && fade.IsFadeOutComplete())
-        {
-            SceneManager.LoadScene("ステージ１");
-            goNextScene = true;
-        }
+        SceneManager.LoadScene("ペンギンセレクトシーン");
     }
 }

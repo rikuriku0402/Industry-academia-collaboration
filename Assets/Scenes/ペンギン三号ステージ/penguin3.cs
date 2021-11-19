@@ -13,6 +13,11 @@ public class penguin3 : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;
 
     private PlayerAnimation playerAnimation;
+
+    //[Header("ジャンプSE")] public AudioClip JumpSE;
+
+    public AudioSource audioSource;
+    private bool isJump = false;
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -22,7 +27,7 @@ public class penguin3 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        //audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -43,10 +48,14 @@ public class penguin3 : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
+
             if (IsGrounded())
             {
                 rb.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
+                audioSource = GetComponent<AudioSource>();
+                audioSource.Play();
             }
+            isJump = true;
         }
     }
     private bool IsGrounded()
@@ -58,5 +67,16 @@ public class penguin3 : MonoBehaviour
     {
         playerAnimation.PlayJump(rb.velocity.y);
         playerAnimation.Running(IsGrounded());
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Enemy"))
+        {
+            Destroy(gameObject);
+        }
+        if (collision.CompareTag("Goal"))
+        {
+            Destroy(gameObject);
+        }
     }
 }
