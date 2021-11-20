@@ -20,7 +20,7 @@ public class ScoerItem : MonoBehaviour
             if(GManager.instance!=null)
             {
                 GManager.instance.score += myScore;
-                anim.Play("Star");
+                //anim.Play("Star");
                 Destroy(this.gameObject,0.2f);
             }
         }
